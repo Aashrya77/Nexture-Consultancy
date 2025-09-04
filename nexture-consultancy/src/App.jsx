@@ -22,6 +22,7 @@ import NewZealandPage from './Components/Countries/NewZealand/NewZealandPage';
 
 import AdminHomepagePage from './Admin/AdminHome/AdminHomepagePage';
 import AdminAboutPage from './Admin/AdminAbout/AdminAboutPage';
+import AdminTeam from './Admin/AdminTeam/AdminTeam';
 import AdminLayout from './Admin/AdminLayout/AdminLayout';
 
 // Admin imports
@@ -49,11 +50,12 @@ function App() {
             <Route path="study/new-zealand" element={<NewZealandPage />} />
           </Route>
           {/* Admin routes */}
-
-            <Route element={<AdminLayout />}>
-            <Route path="home" element={<AdminHomepagePage />} />
-             <Route path="about" element={<AdminAboutPage />} />
-            </Route>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminHomepagePage />} />
+            <Route path="homepage" element={<AdminHomepagePage />} />
+            <Route path="about" element={<AdminAboutPage />} />
+            <Route path="team" element={<AdminTeam />} />
+          </Route>
            
 
         </Routes>

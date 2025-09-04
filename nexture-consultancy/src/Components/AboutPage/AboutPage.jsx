@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
 import './AboutPage.css';
 
 export default function AboutPage() {
@@ -35,40 +35,33 @@ export default function AboutPage() {
     }
   ];
 
-  const team = [
-    {
-      name: 'Dr. Sarah Williams',
-      role: 'Founder & CEO',
-      experience: '15+ years',
-      specialization: 'International Education Strategy',
-      image: 'SW',
-      bio: 'Former university admissions officer with extensive experience in global education systems.'
-    },
-    {
-      name: 'Michael Chen',
-      role: 'Head of Test Preparation',
-      experience: '12+ years',
-      specialization: 'IELTS, TOEFL, GRE, GMAT',
-      image: 'MC',
-      bio: 'Expert instructor with proven track record of helping students achieve top scores.'
-    },
-    {
-      name: 'Priya Patel',
-      role: 'Senior Counselor',
-      experience: '10+ years',
-      specialization: 'USA & Canada Programs',
-      image: 'PP',
-      bio: 'Specialized in North American university admissions and scholarship guidance.'
-    },
-    {
-      name: 'James Rodriguez',
-      role: 'Visa Specialist',
-      experience: '8+ years',
-      specialization: 'Visa & Immigration',
-      image: 'JR',
-      bio: 'Former immigration officer with deep knowledge of visa processes worldwide.'
+  const [team, setTeam] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    fetchTeamMembers();
+  }, []);
+
+  const fetchTeamMembers = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      
+      const response = await axios.get('/api/team');
+      
+      if (response.data.success) {
+        setTeam(response.data.data);
+      } else {
+        setError('Failed to load team members');
+      }
+    } catch (error) {
+      console.error('Error fetching team members:', error);
+      setError('Unable to load team members');
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
 
   const milestones = [
     { year: '2014', event: 'Founded Nexture Education with a vision to democratize international education' },
@@ -81,34 +74,6 @@ export default function AboutPage() {
 
   return (
     <div className="about-page">
-      
-      {/* Hero Section */}
-      <section className="about-hero">
-        <div className="about-hero-container">
-          <div className="about-hero-content">
-            <div className="about-hero-badge">
-              🌟 Celebrating 10 Years of Excellence
-            </div>
-            <h1 className="about-hero-title">
-              Empowering Dreams Through 
-              <span className="about-hero-highlight">Global Education</span>
-            </h1>
-            <p className="about-hero-subtitle">
-              For over a decade, we've been the trusted bridge between ambitious students and world-class universities. 
-              Our mission is to make international education accessible, achievable, and transformative for every student we serve.
-            </p>
-            <div className="about-hero-stats">
-              {stats.map((stat, index) => (
-                <div key={index} className="about-hero-stat">
-                  <span className="about-hero-stat-icon">{stat.icon}</span>
-                  <span className="about-hero-stat-number">{stat.number}</span>
-                  <span className="about-hero-stat-label">{stat.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Story Section */}
       <section className="about-story">
@@ -181,19 +146,43 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="about-team-grid">
-            {team.map((member, index) => (
-              <div key={index} className="about-team-card">
-                <div className="about-team-avatar">
-                  {member.image}
-                </div>
-                <div className="about-team-info">
-                  <h3 className="about-team-name">{member.name}</h3>
-                  <p className="about-team-role">{member.role}</p>
-                  <p className="about-team-experience">{member.experience} • {member.specialization}</p>
-                  <p className="about-team-bio">{member.bio}</p>
-                </div>
+            {loading ? (
+              <div className="team-loading">
+                <div className="loading-spinner"></div>
+                <p>Loading our team...</p>
               </div>
-            ))}
+            ) : error ? (
+              <div className="team-error">
+                <span className="error-icon">⚠️</span>
+                <p>{error}</p>
+                <button onClick={fetchTeamMembers} className="retry-btn">
+                  Try Again
+                </button>
+              </div>
+            ) : team.length > 0 ? (
+              team.map((member) => (
+                <div key={member._id} className="about-team-card">
+                  <div className="about-team-avatar">
+                    {member.image || member.name.split(' ').map(n => n[0]).join('')}
+                  </div>
+                  <div className="about-team-info">
+                    <h3 className="about-team-name">{member.name}</h3>
+                    <p className="about-team-role">{member.role}</p>
+                    {member.experience && member.specialization && (
+                      <p className="about-team-experience">{member.experience} • {member.specialization}</p>
+                    )}
+                    {member.bio && (
+                      <p className="about-team-bio">{member.bio}</p>
+                    )}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="team-empty">
+                <span className="empty-icon">👥</span>
+                <p>No team members available.</p>
+              </div>
+            )}
           </div>
         </div>
       </section>

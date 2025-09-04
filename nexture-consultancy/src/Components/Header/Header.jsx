@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
-
+import { FaFacebook, FaInstagram, FaTwitter, FaPhone, FaEnvelope, FaMapMarkerAlt, FaTiktok } from 'react-icons/fa';
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const user = null; // assuming user is null for now, you should replace this with actual user data
@@ -19,27 +19,29 @@ export default function Header() {
         <div className="header-bar-content">
         <div className="contact-info">
           <div className="contact-item">
-            
+            <FaPhone className="contact-icon" />
             <span>+91 98765 43210</span>
           </div>
           <div className="contact-item">
-            
+            <FaEnvelope className="contact-icon" />
             <span>info@nextureeducation.com</span>
           </div>
           <div className="contact-item">
-            
+            <FaMapMarkerAlt className="contact-icon" />
             <span>Kathmandu, Nepal</span>
           </div>
         </div>
-        <div className="tagline">
-          Your next step to a bright future
+        <div className="socials">
+          <Link to={"https://www.tiktok.com/@nextureeducation"}><FaTiktok /></Link>
+          <Link to={"https://www.instagram.com/nexture.education/"}><FaInstagram /></Link>
+          <Link to={"https://www.facebook.com/profile.php?id=61577074226283"}><FaFacebook /></Link>
         </div>
       </div>
       </div>
       <div className="header-container">
         <div className="header-content">
           <Link to="/" className="header-logo">
-            Nexture Education
+            <img src="/logo.jpeg" width={100} height={100} alt="Nexture Education" />
           </Link>
           
           {/* Desktop Navigation */}
@@ -93,18 +95,22 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMobileMenu}
-            className="header-mobile-menu"
+            className={`header-mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMobileMenuOpen}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <div className="hamburger-icon">
+              <span className="hamburger-line"></span>
+              <span className="hamburger-line"></span>
+              <span className="hamburger-line"></span>
+            </div>
           </button>
         </div>
         
         {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <div className="header-mobile-nav">
-            <div className="header-mobile-nav-content">
+        <div className={`header-mobile-nav ${isMobileMenuOpen ? 'active' : ''}`}>
+          <div className="header-mobile-nav-overlay" onClick={toggleMobileMenu}></div>
+          <div className="header-mobile-nav-content">
               <Link to="/" className="header-mobile-nav-link">
                 Home
               </Link>
@@ -150,9 +156,8 @@ export default function Header() {
                   </Link>
                 </div>
               )}
-            </div>
           </div>
-        )}
+        </div>
       </div>
     </header>
   );

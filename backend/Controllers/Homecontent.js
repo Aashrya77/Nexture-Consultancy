@@ -16,7 +16,7 @@ const createContent = async (req, res) => {
         console.error('Error creating content:', error);
         res.status(500).json({ success: false, message: 'Server error' });
     }
-}
+} 
 
 const getContent = async (req, res) => {
     try {

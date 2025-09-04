@@ -122,38 +122,7 @@ export default function ContactPage() {
   return (
     <div className="contact-page">
       
-      {/* Hero Section */}
-      <section className="contact-hero">
-        <div className="contact-hero-container">
-          <div className="contact-hero-content">
-            <div className="contact-hero-badge">
-              💬 We're Here to Help
-            </div>
-            <h1 className="contact-hero-title">
-              Get in Touch with Our 
-              <span className="contact-hero-highlight">Expert Team</span>
-            </h1>
-            <p className="contact-hero-subtitle">
-              Have questions about studying abroad, test preparation, or university applications? 
-              Our experienced counselors are ready to provide personalized guidance and support.
-            </p>
-            <div className="contact-hero-stats">
-              <div className="contact-hero-stat">
-                <span className="contact-hero-stat-number">24/7</span>
-                <span className="contact-hero-stat-label">Support Available</span>
-              </div>
-              <div className="contact-hero-stat">
-                <span className="contact-hero-stat-number">&lt;24h</span>
-                <span className="contact-hero-stat-label">Response Time</span>
-              </div>
-              <div className="contact-hero-stat">
-                <span className="contact-hero-stat-number">15+</span>
-                <span className="contact-hero-stat-label">Languages Supported</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Contact Methods */}
       <section className="contact-methods">

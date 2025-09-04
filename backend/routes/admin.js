@@ -3,12 +3,14 @@ const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
 const Contact = require('../models/Contact');
 const TeamMember = require('../models/TeamMember');
-const { auth, authorize } = require('../middleware/auth');
+const Blog = require('../models/Blog');
+const Service = require('../models/Service');
+const { authenticate, authorize } = require('../middleware/auth');
 
 const router = express.Router();
 
 // All routes require admin authentication
-router.use(auth);
+router.use(authenticate);
 router.use(authorize('admin'));
 
 // @route   GET /api/admin/dashboard
@@ -19,8 +21,6 @@ router.get('/dashboard', async (req, res) => {
     const [
       totalContacts,
       newContacts,
-      totalConsultations,
-      pendingConsultations,
       totalUsers,
       activeUsers,
       totalBlogs,
@@ -28,14 +28,10 @@ router.get('/dashboard', async (req, res) => {
       totalServices,
       activeServices,
       totalTeamMembers,
-      activeTeamMembers,
-      totalCaseStudies,
-      publishedCaseStudies
+      activeTeamMembers
     ] = await Promise.all([
       Contact.countDocuments(),
       Contact.countDocuments({ status: 'new' }),
-      Consultation.countDocuments(),
-      Consultation.countDocuments({ consultationStatus: 'pending' }),
       User.countDocuments(),
       User.countDocuments({ isActive: true }),
       Blog.countDocuments(),
@@ -43,9 +39,7 @@ router.get('/dashboard', async (req, res) => {
       Service.countDocuments(),
       Service.countDocuments({ isActive: true }),
       TeamMember.countDocuments(),
-      TeamMember.countDocuments({ isActive: true }),
-      CaseStudy.countDocuments(),
-      CaseStudy.countDocuments({ status: 'published' })
+      TeamMember.countDocuments({ isActive: true })
     ]);
 
     // Get recent activities
@@ -54,14 +48,9 @@ router.get('/dashboard', async (req, res) => {
       .limit(5)
       .select('firstName lastName email subject createdAt status');
 
-    const recentConsultations = await Consultation.find()
-      .sort({ createdAt: -1 })
-      .limit(5)
-      .select('firstName lastName email serviceType preferredDate consultationStatus')
-      .populate('assignedCounselor', 'firstName lastName');
-
-    // Get upcoming consultations
-    const upcomingConsultations = await Consultation.getUpcomingConsultations(7);
+    // TODO: Add consultation functionality when Consultation model is created
+    const recentConsultations = [];
+    const upcomingConsultations = [];
 
     res.json({
       success: true,
@@ -72,8 +61,8 @@ router.get('/dashboard', async (req, res) => {
             new: newContacts
           },
           consultations: {
-            total: totalConsultations,
-            pending: pendingConsultations,
+            total: 0,
+            pending: 0,
             upcoming: upcomingConsultations.length
           },
           users: {
@@ -91,10 +80,6 @@ router.get('/dashboard', async (req, res) => {
           team: {
             total: totalTeamMembers,
             active: activeTeamMembers
-          },
-          caseStudies: {
-            total: totalCaseStudies,
-            published: publishedCaseStudies
           }
         },
         recentActivity: {
@@ -314,27 +299,8 @@ router.get('/analytics', async (req, res) => {
       }
     ]);
 
-    // Consultation analytics
-    const consultationAnalytics = await Consultation.aggregate([
-      {
-        $match: {
-          createdAt: { $gte: startDate }
-        }
-      },
-      {
-        $group: {
-          _id: {
-            date: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
-            serviceType: "$serviceType",
-            status: "$consultationStatus"
-          },
-          count: { $sum: 1 }
-        }
-      },
-      {
-        $sort: { "_id.date": 1 }
-      }
-    ]);
+    // TODO: Add consultation analytics when Consultation model is created
+    const consultationAnalytics = [];
 
     // Blog analytics
     const blogAnalytics = await Blog.aggregate([
@@ -399,9 +365,8 @@ router.get('/reports', async (req, res) => {
         break;
       
       case 'consultations':
-        data = await Consultation.find(query)
-          .populate('assignedCounselor', 'firstName lastName')
-          .sort({ createdAt: -1 });
+        // TODO: Add consultation reports when Consultation model is created
+        data = [];
         break;
       
       case 'users':

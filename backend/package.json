@@ -8,6 +8,7 @@
     "dev": "nodemon start.js",
     "server": "node server.js",
     "init-db": "node scripts/init-db.js",
+    "setup-admin": "node scripts/setup-admin.js",
     "test": "jest"
   },
   "dependencies": {

@@ -75,166 +75,17 @@ export default function HomePage() {
     setCurrentImageIndex(index);
   };
 
-  const getDefaultContent = () => ({
+const getDefaultContent = () => {
+  return {
     hero: {
       title: "Your Next Step to a Bright Future",
       subtitle: "Your Trusted Education Partner",
       description:
         "Expert guidance for study abroad and test preparation. We help students achieve their dreams of international education with personalized coaching and comprehensive support.",
-      primaryButtonText: "Get Free Consultation",
-      secondaryButtonText: "Explore Destinations",
+        images: ["/WhatsApp Image 2025-09-03 at 16.20.16.jpeg", "/WhatsApp Image 2025-09-03 at 16.20.12.jpeg", "/WhatsApp Image 2025-09-03 at 16.20.11.jpeg"]
     },
-    stats: [
-      { number: "5000+", label: "Students Placed", icon: "🎓" },
-      { number: "50+", label: "Partner Universities", icon: "🏛️" },
-      { number: "95%", label: "Success Rate", icon: "⭐" },
-      { number: "10+", label: "Years Experience", icon: "🏆" },
-    ],
-    features: [
-      {
-        title: "Expert Counseling",
-        description:
-          "Get personalized guidance from our experienced education consultants who have helped thousands of students achieve their dreams.",
-        icon: "🎯",
-        highlights: [
-          "One-on-one sessions",
-          "Career guidance",
-          "University selection",
-        ],
-      },
-      {
-        title: "Global University Network",
-        description:
-          "Access our extensive network of top-ranked universities and colleges across 25+ countries worldwide.",
-        icon: "🌐",
-        highlights: [
-          "150+ partner universities",
-          "Direct admissions",
-          "Scholarship opportunities",
-        ],
-      },
-      {
-        title: "Test Preparation Excellence",
-        description:
-          "Comprehensive coaching for IELTS, TOEFL, GRE, GMAT, SAT, and other standardized tests with proven results.",
-        icon: "📈",
-        highlights: ["Expert instructors", "Mock tests", "98% success rate"],
-      },
-      {
-        title: "Visa & Documentation",
-        description:
-          "Complete assistance with visa applications, documentation, and pre-departure guidance for a smooth transition.",
-        icon: "📋",
-        highlights: ["Visa guidance", "Document prep", "Pre-departure support"],
-      },
-      {
-        title: "Scholarship Assistance",
-        description:
-          "Maximize your chances of securing scholarships and financial aid with our expert application strategies.",
-        icon: "💰",
-        highlights: [
-          "Scholarship search",
-          "Application help",
-          "Financial planning",
-        ],
-      },
-      {
-        title: "Career Support",
-        description:
-          "Ongoing career guidance and networking opportunities to help you succeed in your chosen field.",
-        icon: "🚀",
-        highlights: [
-          "Career counseling",
-          "Industry connections",
-          "Job placement",
-        ],
-      },
-    ],
-    testimonials: [
-      {
-        name: "Sarah Johnson",
-        university: "Harvard University",
-        course: "MBA",
-        country: "🇺🇸 USA",
-        quote:
-          "Nexture Education made my dream of studying at Harvard a reality. Their guidance was invaluable throughout the entire process.",
-        rating: 5,
-      },
-      {
-        name: "Michael Chen",
-        university: "Oxford University",
-        course: "Computer Science",
-        country: "🇬🇧 UK",
-        quote:
-          "The test preparation and application support helped me secure admission to my dream university with a scholarship.",
-        rating: 5,
-      },
-      {
-        name: "Priya Sharma",
-        university: "University of Toronto",
-        course: "Engineering",
-        country: "🇨🇦 Canada",
-        quote:
-          "From IELTS preparation to visa guidance, Nexture Education supported me every step of the way.",
-        rating: 5,
-      },
-    ],
-    destinations: [
-      {
-        name: "United States",
-        flag: "🇺🇸",
-        universities: "500+",
-        popular: "MIT, Harvard, Stanford",
-      },
-      {
-        name: "United Kingdom",
-        flag: "🇬🇧",
-        universities: "200+",
-        popular: "Oxford, Cambridge, LSE",
-      },
-      {
-        name: "Canada",
-        flag: "🇨🇦",
-        universities: "150+",
-        popular: "UofT, UBC, McGill",
-      },
-      {
-        name: "Australia",
-        flag: "🇦🇺",
-        universities: "100+",
-        popular: "ANU, Melbourne, Sydney",
-      },
-      {
-        name: "Germany",
-        flag: "🇩🇪",
-        universities: "80+",
-        popular: "TUM, Heidelberg, Berlin",
-      },
-      {
-        name: "Netherlands",
-        flag: "🇳🇱",
-        universities: "50+",
-        popular: "Delft, Amsterdam, Leiden",
-      },
-    ],
-    courses: [
-      {
-        name: "IELTS",
-        duration: "8 weeks",
-        price: "₹15,000",
-        rating: 4.8,
-        students: "500+",
-      },
-      {
-        name: "TOEFL",
-        duration: "10 weeks",
-        price: "₹18,000",
-        rating: 4.9,
-        students: "300+",
-      },
-    ],
-  });
-
+  };
+};
   return (
     <div className="homepage">
       {/* Modern Hero Section */}

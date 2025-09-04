@@ -60,26 +60,15 @@ const services = [
       duration: '8 weeks',
       price: '₹15,000'
     },
+    
+
+
     {
       id: 2,
-      testName: 'TOEFL',
+      testName: 'PTE',
       category: 'English Proficiency',
-      duration: '10 weeks',
+      duration: '6 weeks',
       price: '₹18,000'
-    },
-    {
-      id: 3,
-      testName: 'GRE',
-      category: 'Graduate Admission',
-      duration: '12 weeks',
-      price: '₹25,000'
-    },
-    {
-      id: 4,
-      testName: 'GMAT',
-      category: 'Business School',
-      duration: '10 weeks',
-      price: '₹22,000'
     }
   ];
 
