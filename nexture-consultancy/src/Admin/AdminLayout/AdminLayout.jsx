@@ -12,6 +12,7 @@ export default function AdminLayout() {
     { name: 'Homepage Content', href: '/admin/homepage', icon: '🏡' },
     { name: 'Blog Posts', href: '/admin/blog', icon: '📝' },
     { name: 'Team Members', href: '/admin/team', icon: '👥' },
+    { name: 'Consultations', href: '/admin/consultations', icon: '📅' },
     { name: 'Contact Info', href: '/admin/contact', icon: '📞' },
     { name: 'Site Settings', href: '/admin/settings', icon: '⚙️' },
   ];

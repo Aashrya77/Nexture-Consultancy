@@ -15,6 +15,7 @@ const adminRoutes = require('./routes/admin');
 const teamRoutes = require('./routes/team');
 const uploadRoutes = require('./routes/homeContent');
 const blogRoutes = require('./routes/Blogs');
+const consultationRoutes = require('./routes/consultation');
 
 // Middleware
 app.use(helmet());
@@ -65,6 +66,7 @@ app.use('/api/team', teamRoutes);
 
 app.use('/api/home', uploadRoutes);
 app.use('/api/blogs', blogRoutes);
+app.use('/api/consultation', consultationRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

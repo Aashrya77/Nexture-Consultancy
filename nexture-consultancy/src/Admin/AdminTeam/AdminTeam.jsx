@@ -6,11 +6,13 @@ export default function AdminTeam() {
   const [teamMembers, setTeamMembers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [editingMember, setEditingMember] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [filter, setFilter] = useState({
-    status: 'all'
+    status: 'all',
+    search: ''
   });
 
   const [formData, setFormData] = useState({
@@ -35,8 +37,9 @@ export default function AdminTeam() {
 
   useEffect(() => {
     fetchTeamMembers();
-  }, [filter]);
+  }, []);
 
+  // CREATE & READ - Fetch all team members
   const fetchTeamMembers = async () => {
     try {
       setLoading(true);
@@ -45,7 +48,7 @@ export default function AdminTeam() {
       const response = await axios.get('/api/team');
       
       if (response.data.success) {
-        setTeamMembers(response.data.data);
+        setTeamMembers(response.data.data || []);
       } else {
         setError(response.data.message || 'Failed to fetch team members');
       }
@@ -57,22 +60,36 @@ export default function AdminTeam() {
     }
   };
 
+  // CREATE & UPDATE - Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setError('');
+      setSuccess('');
       
+      // Validate required fields
+      if (!formData.name.trim() || !formData.role.trim()) {
+        setError('Name and Role are required fields');
+        return;
+      }
+
       let response;
       if (editingMember) {
+        // UPDATE operation
         response = await axios.put(`/api/team/${editingMember._id}`, formData);
+        setSuccess('Team member updated successfully!');
       } else {
+        // CREATE operation
         response = await axios.post('/api/team', formData);
+        setSuccess('Team member created successfully!');
       }
 
       if (response.data.success) {
-        fetchTeamMembers();
+        await fetchTeamMembers();
         resetForm();
         setShowForm(false);
+        // Clear success message after 3 seconds
+        setTimeout(() => setSuccess(''), 3000);
       } else {
         setError(response.data.message || 'Failed to save team member');
       }
@@ -82,6 +99,7 @@ export default function AdminTeam() {
     }
   };
 
+  // UPDATE - Prepare form for editing
   const handleEdit = (member) => {
     setEditingMember(member);
     setFormData({
@@ -95,17 +113,24 @@ export default function AdminTeam() {
       order: member.order || 0
     });
     setShowForm(true);
+    setError('');
+    setSuccess('');
   };
 
+  // DELETE - Remove team member
   const handleDelete = async (id) => {
     try {
       setError('');
+      setSuccess('');
       
       const response = await axios.delete(`/api/team/${id}`);
       
       if (response.data.success) {
-        fetchTeamMembers();
+        await fetchTeamMembers();
         setDeleteConfirm(null);
+        setSuccess('Team member deleted successfully!');
+        // Clear success message after 3 seconds
+        setTimeout(() => setSuccess(''), 3000);
       } else {
         setError(response.data.message || 'Failed to delete team member');
       }
@@ -115,20 +140,25 @@ export default function AdminTeam() {
     }
   };
 
+  // UPDATE - Toggle member status
   const toggleStatus = async (id) => {
     try {
       setError('');
+      setSuccess('');
       
-      // Find the current member to toggle their status
       const member = teamMembers.find(m => m._id === id);
       if (!member) return;
       
       const response = await axios.put(`/api/team/${id}`, {
+        ...member,
         isActive: !member.isActive
       });
       
       if (response.data.success) {
-        fetchTeamMembers();
+        await fetchTeamMembers();
+        setSuccess(`Team member ${!member.isActive ? 'activated' : 'deactivated'} successfully!`);
+        // Clear success message after 3 seconds
+        setTimeout(() => setSuccess(''), 3000);
       } else {
         setError(response.data.message || 'Failed to toggle status');
       }
@@ -138,6 +168,7 @@ export default function AdminTeam() {
     }
   };
 
+  // Reset form to initial state
   const resetForm = () => {
     setFormData({
       name: '',
@@ -150,8 +181,11 @@ export default function AdminTeam() {
       order: 0
     });
     setEditingMember(null);
+    setError('');
+    setSuccess('');
   };
 
+  // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     
@@ -161,6 +195,19 @@ export default function AdminTeam() {
     }));
   };
 
+  // Filter team members based on status and search
+  const filteredMembers = teamMembers.filter(member => {
+    const matchesStatus = filter.status === 'all' || 
+      (filter.status === 'active' && member.isActive) ||
+      (filter.status === 'inactive' && !member.isActive);
+    
+    const matchesSearch = !filter.search || 
+      member.name?.toLowerCase().includes(filter.search.toLowerCase()) ||
+      member.role?.toLowerCase().includes(filter.search.toLowerCase()) ||
+      member.specialization?.toLowerCase().includes(filter.search.toLowerCase());
+    
+    return matchesStatus && matchesSearch;
+  });
 
   if (loading) {
     return (
@@ -178,7 +225,7 @@ export default function AdminTeam() {
       <div className="admin-team-header">
         <div className="header-content">
           <h1>Team Members Management</h1>
-          <p>Manage your team members and their information</p>
+          <p>Manage your team members with full CRUD operations</p>
         </div>
         <button 
           className="btn-primary"
@@ -192,6 +239,16 @@ export default function AdminTeam() {
         </button>
       </div>
 
+      {/* Success Message */}
+      {success && (
+        <div className="success-message">
+          <span className="success-icon">✅</span>
+          {success}
+          <button onClick={() => setSuccess('')} className="success-close">✕</button>
+        </div>
+      )}
+
+      {/* Error Message */}
       {error && (
         <div className="error-message">
           <span className="error-icon">⚠️</span>
@@ -200,9 +257,16 @@ export default function AdminTeam() {
         </div>
       )}
 
-      {/* Filters */}
+      {/* Filters and Search */}
       <div className="filters-section">
         <div className="filters">
+          <input
+            type="text"
+            placeholder="Search by name, role, or specialization..."
+            value={filter.search}
+            onChange={(e) => setFilter(prev => ({ ...prev, search: e.target.value }))}
+            className="search-input"
+          />
           <select
             value={filter.status}
             onChange={(e) => setFilter(prev => ({ ...prev, status: e.target.value }))}
@@ -215,25 +279,19 @@ export default function AdminTeam() {
         </div>
         
         <div className="results-count">
-          {teamMembers.length} team member{teamMembers.length !== 1 ? 's' : ''} found
+          {filteredMembers.length} of {teamMembers.length} team member{teamMembers.length !== 1 ? 's' : ''}
         </div>
       </div>
 
-      {/* Team Members List */}
+      {/* Team Members Grid */}
       <div className="team-members-grid">
-        {teamMembers.map(member => (
+        {filteredMembers.map(member => (
           <div key={member._id} className="team-member-card">
             <div className="member-header">
               <div className="member-avatar">
-                {member.image ? (
-                  <div className="avatar-placeholder">
-                    {member.image}
-                  </div>
-                ) : (
-                  <div className="avatar-placeholder">
-                    {member.name?.charAt(0) || '?'}
-                  </div>
-                )}
+                <div className="avatar-placeholder">
+                  {member.image || member.name?.charAt(0) || '?'}
+                </div>
               </div>
               <div className="member-info">
                 <h3>{member.name}</h3>
@@ -244,59 +302,73 @@ export default function AdminTeam() {
             <div className="member-details">
               {member.experience && <p><strong>Experience:</strong> {member.experience}</p>}
               {member.specialization && <p><strong>Specialization:</strong> {member.specialization}</p>}
-              {member.bio && <p><strong>Bio:</strong> {member.bio.substring(0, 100)}...</p>}
+              {member.bio && (
+                <p><strong>Bio:</strong> {member.bio.length > 100 ? `${member.bio.substring(0, 100)}...` : member.bio}</p>
+              )}
               <p><strong>Order:</strong> {member.order}</p>
+              <p><strong>Created:</strong> {new Date(member.createdAt).toLocaleDateString()}</p>
             </div>
 
             <div className="member-status">
-              <div className="status-indicators">
-                <span className={`status-badge ${member.isActive ? 'active' : 'inactive'}`}>
-                  {member.isActive ? '✅ Active' : '❌ Inactive'}
-                </span>
-              </div>
+              <span className={`status-badge ${member.isActive ? 'active' : 'inactive'}`}>
+                {member.isActive ? '✅ Active' : '❌ Inactive'}
+              </span>
             </div>
 
             <div className="member-actions">
               <button
                 onClick={() => handleEdit(member)}
                 className="btn-edit"
-                title="Edit"
+                title="Edit member"
               >
-                ✏️
+                ✏️ Edit
               </button>
               <button
                 onClick={() => toggleStatus(member._id)}
                 className="btn-toggle"
                 title={member.isActive ? 'Deactivate' : 'Activate'}
               >
-                {member.isActive ? '⏸️' : '▶️'}
+                {member.isActive ? '⏸️ Deactivate' : '▶️ Activate'}
               </button>
               <button
                 onClick={() => setDeleteConfirm(member)}
                 className="btn-delete"
-                title="Delete"
+                title="Delete member"
               >
-                🗑️
+                🗑️ Delete
               </button>
             </div>
           </div>
         ))}
       </div>
 
-      {teamMembers.length === 0 && !loading && (
+      {/* Empty State */}
+      {filteredMembers.length === 0 && !loading && (
         <div className="empty-state">
           <div className="empty-icon">👥</div>
-          <h3>No team members found</h3>
-          <p>Add your first team member to get started</p>
-          <button 
-            className="btn-primary"
-            onClick={() => {
-              resetForm();
-              setShowForm(true);
-            }}
-          >
-            Add Team Member
-          </button>
+          <h3>
+            {teamMembers.length === 0 
+              ? 'No team members found' 
+              : 'No members match your filters'
+            }
+          </h3>
+          <p>
+            {teamMembers.length === 0 
+              ? 'Add your first team member to get started' 
+              : 'Try adjusting your search or filter criteria'
+            }
+          </p>
+          {teamMembers.length === 0 && (
+            <button 
+              className="btn-primary"
+              onClick={() => {
+                resetForm();
+                setShowForm(true);
+              }}
+            >
+              Add Team Member
+            </button>
+          )}
         </div>
       )}
 
@@ -389,6 +461,7 @@ export default function AdminTeam() {
                     value={formData.order}
                     onChange={handleInputChange}
                     min="0"
+                    placeholder="0"
                   />
                 </div>
 
@@ -400,8 +473,9 @@ export default function AdminTeam() {
                     onChange={handleInputChange}
                     maxLength="500"
                     rows="4"
-                    placeholder="Brief biography..."
+                    placeholder="Brief biography and background..."
                   />
+                  <small>{formData.bio.length}/500 characters</small>
                 </div>
 
                 <div className="form-group checkbox-group">
@@ -412,7 +486,7 @@ export default function AdminTeam() {
                       checked={formData.isActive}
                       onChange={handleInputChange}
                     />
-                    Active
+                    Active (visible on website)
                   </label>
                 </div>
               </div>
@@ -445,8 +519,13 @@ export default function AdminTeam() {
               <h2>Confirm Delete</h2>
             </div>
             <div className="modal-body">
-              <p>Are you sure you want to delete <strong>{deleteConfirm.name}</strong>?</p>
-              <p className="warning-text">This action cannot be undone.</p>
+              <div className="delete-warning">
+                <div className="warning-icon">⚠️</div>
+                <div>
+                  <p>Are you sure you want to delete <strong>{deleteConfirm.name}</strong>?</p>
+                  <p className="warning-text">This action cannot be undone and will permanently remove this team member from your system.</p>
+                </div>
+              </div>
             </div>
             <div className="form-actions">
               <button
@@ -459,7 +538,7 @@ export default function AdminTeam() {
                 onClick={() => handleDelete(deleteConfirm._id)}
                 className="btn-danger"
               >
-                Delete
+                Delete Permanently
               </button>
             </div>
           </div>

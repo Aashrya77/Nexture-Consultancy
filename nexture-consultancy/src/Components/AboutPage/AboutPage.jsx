@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import base_url from '../../../config';
 import './AboutPage.css';
 
 export default function AboutPage() {
@@ -48,7 +49,7 @@ export default function AboutPage() {
       setLoading(true);
       setError('');
       
-      const response = await axios.get('/api/team');
+      const response = await axios.get(`${base_url}/api/team`);
       
       if (response.data.success) {
         setTeam(response.data.data);

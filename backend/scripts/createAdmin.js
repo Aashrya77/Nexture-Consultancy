@@ -1,12 +1,30 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const path = require('path');
 const User = require('../models/User');
-require('dotenv').config();
+
+// Configure dotenv with the correct path
+// Try to use the main .env file first, if not available use the temp.env
+const envPath = path.resolve(__dirname, '../.env');
+const tempEnvPath = path.resolve(__dirname, './temp.env');
+
+const fs = require('fs');
+const envFile = fs.existsSync(envPath) ? envPath : tempEnvPath;
+
+require('dotenv').config({ path: envFile });
+console.log(`Using environment file: ${envFile}`);
+
 
 const createAdminUser = async () => {
   try {
     // Connect to MongoDB
-    await mongoose.connect(process.env.MONGODB_URI);
+    const mongoURI = process.env.MONGODB_URI;
+    
+    if (!mongoURI) {
+      throw new Error('MONGODB_URI is not defined in .env file');
+    }
+    
+    await mongoose.connect(mongoURI);
     console.log('Connected to MongoDB');
 
     // Check if admin user already exists

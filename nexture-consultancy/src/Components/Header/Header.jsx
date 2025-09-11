@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 import { FaFacebook, FaInstagram, FaTwitter, FaPhone, FaEnvelope, FaMapMarkerAlt, FaTiktok } from 'react-icons/fa';
 export default function Header() {
@@ -8,6 +8,8 @@ export default function Header() {
   const handleLogout = () => {
     // implement logout logic here
   };
+
+  const navigate = useNavigate();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -86,7 +88,7 @@ export default function Header() {
 
             }
             <div className='header-cta-buttons'>
-              <button className="cta-btn">
+              <button className="cta-btn" onClick={() => navigate('/consultation')}>
                 Book Consultation
               </button>
               </div>
