@@ -13,7 +13,7 @@ const contactRoutes = require('./routes/contact');
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const teamRoutes = require('./routes/team');
-const uploadRoutes = require('./routes/homeContent');
+const uploadRoutes = require('./routes/HomeContent');
 const blogRoutes = require('./routes/Blogs');
 const consultationRoutes = require('./routes/consultation');
 
