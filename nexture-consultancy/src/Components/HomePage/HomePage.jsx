@@ -24,7 +24,7 @@ export default function HomePage() {
 
   const getContent = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/home");
+      const response = await axios.get(`${base_url}/api/home`);
       if (response.statusText === "OK") {
         setContent(response.data.data);
       } else {
