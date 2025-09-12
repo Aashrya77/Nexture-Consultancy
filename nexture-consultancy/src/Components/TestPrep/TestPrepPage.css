@@ -1,0 +1,628 @@
+/* Test Prep Page Styles */
+.test-prep-page {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+/* Hero Section */
+.test-prep-hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 80px 0 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.test-prep-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
+}
+
+.test-prep-hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.test-prep-breadcrumb {
+  font-size: 14px;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.test-prep-breadcrumb a {
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.test-prep-breadcrumb a:hover {
+  opacity: 0.8;
+}
+
+.test-prep-hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.test-prep-highlight {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 400;
+  opacity: 0.9;
+  margin-top: 10px;
+}
+
+.test-prep-hero-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  opacity: 0.95;
+}
+
+.test-prep-hero-stats {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fbbf24;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.test-prep-hero-cta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-test-prep-primary,
+.btn-test-prep-secondary {
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-test-prep-primary {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.btn-test-prep-primary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-test-prep-secondary {
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn-test-prep-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.test-prep-hero-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.test-prep-hero-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Section Header */
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 16px;
+}
+
+.section-header p {
+  font-size: 1.2rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Test Structure Section */
+.test-structure-section {
+  padding: 80px 0;
+  background: white;
+}
+
+.test-structure-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.test-structure-grid.pte-structure {
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+.structure-card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.structure-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+.structure-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.structure-header h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.duration-badge {
+  background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.questions-count {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #7c3aed;
+  margin-bottom: 10px;
+}
+
+.section-description {
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* Course Features Section */
+.course-features-section {
+  padding: 80px 0;
+  background: #f8fafc;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.feature-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 15px;
+}
+
+.feature-description {
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* PTE Advantages Section */
+.pte-advantages-section {
+  padding: 80px 0;
+  background: white;
+}
+
+.advantages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.advantage-card {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.advantage-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.advantage-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.advantage-description {
+  color: #64748b;
+  line-height: 1.5;
+}
+
+/* Scoring Guide Section */
+.scoring-guide-section {
+  padding: 80px 0;
+  background: #f8fafc;
+}
+
+.scoring-table {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.score-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr;
+  padding: 20px 30px;
+  border-bottom: 1px solid #e2e8f0;
+  align-items: center;
+}
+
+.score-row:last-child {
+  border-bottom: none;
+}
+
+.score-row:nth-child(odd) {
+  background: #f8fafc;
+}
+
+.score-range {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #3b82f6;
+}
+
+.score-level {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.score-description {
+  color: #64748b;
+}
+
+/* Course Plans Section */
+.course-plans-section {
+  padding: 80px 0;
+  background: white;
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.plan-card {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border: 2px solid #e2e8f0;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.plan-card.popular {
+  border-color: #3b82f6;
+  transform: scale(1.05);
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+.plan-card.popular:hover {
+  transform: scale(1.05) translateY(-5px);
+}
+
+.popular-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+  color: white;
+  padding: 8px 24px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.plan-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.plan-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.plan-price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #3b82f6;
+  margin-bottom: 5px;
+}
+
+.plan-duration {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.plan-features {
+  margin-bottom: 30px;
+}
+
+.plan-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.check-icon {
+  color: #10b981;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.plan-cta-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.plan-cta-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Success Tips Section */
+.success-tips-section {
+  padding: 80px 0;
+  background: #f8fafc;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.tip-card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.tip-card:hover {
+  transform: translateY(-5px);
+}
+
+.tip-number {
+  position: absolute;
+  top: -15px;
+  left: 30px;
+  background: linear-gradient(45deg, #f59e0b, #d97706);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.tip-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 20px 0 15px;
+}
+
+.tip-description {
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* CTA Section */
+.test-prep-cta-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: white;
+  text-align: center;
+}
+
+.cta-content h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.cta-content p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .test-prep-hero-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  
+  .test-prep-hero-title {
+    font-size: 3rem;
+  }
+  
+  .test-prep-hero-stats {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .test-prep-hero {
+    padding: 60px 0 40px;
+  }
+  
+  .test-prep-hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .test-prep-hero-stats {
+    gap: 20px;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .section-header h2 {
+    font-size: 2rem;
+  }
+  
+  .score-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    text-align: center;
+  }
+  
+  .plans-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .plan-card.popular {
+    transform: none;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .test-prep-hero-title {
+    font-size: 2rem;
+  }
+  
+  .test-prep-hero-cta {
+    flex-direction: column;
+  }
+  
+  .btn-test-prep-primary,
+  .btn-test-prep-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}

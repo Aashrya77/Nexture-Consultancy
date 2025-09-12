@@ -289,17 +289,22 @@ const getDefaultContent = () => {
                 </div>
               </div>
 
-              <button className="learn-more-btn">Learn More</button>
+              <Link 
+                to={course.testName === 'IELTS' ? '/test-prep/ielts' : '/test-prep/pte'} 
+                className="learn-more-btn"
+              >
+                Learn More
+              </Link>
             </div>
           ))}
         </div>
 
-        <div className="test-prep-footer">
+        {/* <div className="test-prep-footer">
           <button className="view-all-courses-btn">
             View All Courses
             <span className="arrow-icon">→</span>
           </button>
-        </div>
+        </div> */}
       </div>
 
       {/* Testimonials */}

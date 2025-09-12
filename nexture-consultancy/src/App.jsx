@@ -11,9 +11,12 @@ import HomePage from './Components/HomePage/HomePage'
 import AboutPage from './Components/AboutPage/AboutPage';
 import StudyAbroadPage from './Components/StudyAbroad/StudyAbroadPage';
 import BlogPage from './Components/Blogs/BlogPage';
+import BlogDetail from './Components/Blogs/BlogDetail';
 import ContactPage from './Components/ContactPage/ContactPage';
 import ConsultationPage from './Components/ConsultationPage/ConsultationPage';
 import AdminLogin from './pages/AdminLogin/AdminLogin';
+import IELTSPage from './Components/TestPrep/IELTSPage';
+import PTEPage from './Components/TestPrep/PTEPage';
 
 // Import individual country pages
 import AustraliaPage from './Components/Countries/Australia/AustraliaPage';
@@ -28,6 +31,7 @@ import AdminAboutPage from './Admin/AdminAbout/AdminAboutPage';
 import AdminTeam from './Admin/AdminTeam/AdminTeam';
 import AdminLayout from './Admin/AdminLayout/AdminLayout';
 import AdminConsultationPage from './Admin/AdminConsultation/AdminConsultationPage';
+import AdminBlog from './Admin/AdminBlog/AdminBlog';
 
 // Admin imports
 function App() {
@@ -42,6 +46,9 @@ function App() {
               <Route path="about" element={<AboutPage />} />
               <Route path="study-abroad" element={<StudyAbroadPage />} />
               <Route path="blog" element={<BlogPage />} />
+              <Route path="blog/:id" element={<BlogDetail />} />
+              <Route path="test-prep/ielts" element={<IELTSPage />} />
+              <Route path="test-prep/pte" element={<PTEPage />} />
               <Route path="contact" element={<ContactPage />} />
               <Route path="consultation" element={<ConsultationPage />} />
               
@@ -68,6 +75,7 @@ function App() {
               <Route path="about" element={<AdminAboutPage />} />
               <Route path="team" element={<AdminTeam />} />
               <Route path="consultations" element={<AdminConsultationPage />} />
+              <Route path="blog" element={<AdminBlog />} />
             </Route>
           </Routes>
         </div>

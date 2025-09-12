@@ -48,22 +48,22 @@ export default function Header() {
           
           {/* Desktop Navigation */}
           <nav className="header-nav">
-            <Link to="/" className="header-nav-link">
+            <Link to="/" className="header-nav-link" onClick={() => toggleMobileMenu()}>
               Home
             </Link>
-            <Link to="/about" className="header-nav-link">
+            <Link to="/about" className="header-nav-link" onClick={() => toggleMobileMenu()}>
               About
             </Link>
-            <Link to="/study-abroad" className="header-nav-link">
+            <Link to="/study-abroad" className="header-nav-link" onClick={() => toggleMobileMenu()}>
               Study Abroad
             </Link>
-            <Link to="/preparation-classes" className="header-nav-link">
+            {/* <Link to="/preparation-classes" className="header-nav-link">
               Test Prep
-            </Link>
-            <Link to="/blog" className="header-nav-link">
+            </Link> */}
+            <Link to="/blog" className="header-nav-link" onClick={() => toggleMobileMenu()}>
               Blog
             </Link>
-            <Link to="/contact" className="header-nav-link">
+            <Link to="/contact" className="header-nav-link" onClick={() => toggleMobileMenu()}>
               Contact
             </Link>
           </nav>
@@ -88,7 +88,7 @@ export default function Header() {
 
             }
             <div className='header-cta-buttons'>
-              <button className="cta-btn" onClick={() => navigate('/consultation')}>
+              <button className="cta-btn" onClick={() => { navigate('/consultation'); toggleMobileMenu(); }}>
                 Book Consultation
               </button>
               </div>
@@ -113,22 +113,22 @@ export default function Header() {
         <div className={`header-mobile-nav ${isMobileMenuOpen ? 'active' : ''}`}>
           <div className="header-mobile-nav-overlay" onClick={toggleMobileMenu}></div>
           <div className="header-mobile-nav-content">
-              <Link to="/" className="header-mobile-nav-link">
+              <Link to="/" className="header-mobile-nav-link" onClick={toggleMobileMenu}>
                 Home
               </Link>
-              <Link to="/about" className="header-mobile-nav-link">
+              <Link to="/about" className="header-mobile-nav-link" onClick={toggleMobileMenu}>
                 About
               </Link>
-              <Link to="/study-abroad" className="header-mobile-nav-link">
+              <Link to="/study-abroad" className="header-mobile-nav-link" onClick={toggleMobileMenu}>
                 Study Abroad
               </Link>
-              <Link to="/preparation-classes" className="header-mobile-nav-link">
+              {/* <Link to="/preparation-classes" className="header-mobile-nav-link" onClick={toggleMobileMenu}>
                 Test Prep
-              </Link>
-              <Link to="/blog" className="header-mobile-nav-link">
+              </Link> */}
+              <Link to="/blog" className="header-mobile-nav-link" onClick={toggleMobileMenu}>
                 Blog
               </Link>
-              <Link to="/contact" className="header-mobile-nav-link">
+              <Link to="/contact" className="header-mobile-nav-link" onClick={toggleMobileMenu}>
                 Contact
               </Link>
               {user ? (
@@ -137,7 +137,7 @@ export default function Header() {
                     👋 Hi, {user.firstName || user.name}
                   </span>
                   {user.role === 'admin' && (
-                    <Link to="/admin" className="btn-secondary">
+                    <Link to="/admin" className="btn-secondary" onClick={toggleMobileMenu}>
                       Admin Panel
                     </Link>
                   )}

@@ -1,115 +1,216 @@
-import React, { useEffect } from 'react'
-import "./BlogPage.css"
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import "./BlogPage.css";
 import axios from 'axios';
 import base_url from '../../../config';
-const BlogPage = () => {
 
-  const [blogs, setBlogs] = React.useState([]); // State to hold blog posts
+const BlogPage = () => {
+  const [blogs, setBlogs] = useState([]); 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedTag, setSelectedTag] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const blogsPerPage = 6;
 
   const getBlogs = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(`${base_url}/api/blogs`);
-      console.log(response.data);
       setBlogs(response.data);
+      setError(null);
     } catch (error) {
       console.error("Error fetching blogs:", error);
-      
+      setError("Failed to load blog posts. Please try again later.");
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     getBlogs();
   }, []);
-  const blogPosts = [
-    {
-      id: 1,
-      image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-      author: 'Nexture Education',
-      date: '1/15/2024',
-      title: 'Top 10 Universities in Canada for International Students',
-      excerpt: 'Discover the best Canadian universities offering world-class education and excellent opportunities for international students.',
-      tags: ['Canada', 'Universities'],
-      readMore: 'Read More'
-    },
-    {
-      id: 2,
-      image: null, // This will show placeholder
-      author: 'Nexture Education',
-      date: '1/5/2024',
-      title: 'Scholarship Opportunities for Indian Students Abroad',
-      excerpt: 'Explore various scholarship programs available for Indian students planning to study abroad.',
-      tags: ['Scholarships', 'Financial Aid'],
-      readMore: 'Read More'
-    }
-  ];
+
+  // Filter blogs based on search term and selected tag
+  const filteredBlogs = blogs.filter(blog => {
+    const matchesSearch = blog.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                         blog.content.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesTag = selectedTag ? blog.tags.includes(selectedTag) : true;
+    return matchesSearch && matchesTag;
+  });
+
+  // Get all unique tags from blogs
+  const allTags = [...new Set(blogs.flatMap(blog => blog.tags))];
+
+  // Get current blogs for pagination
+  const indexOfLastBlog = currentPage * blogsPerPage;
+  const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
+  const currentBlogs = filteredBlogs.slice(indexOfFirstBlog, indexOfLastBlog);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Format date function
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric' 
+    });
+  };
+
+  // Truncate text function
+  const truncateText = (text, maxLength) => {
+    if (!text) return '';
+    if (text.length <= maxLength) return text;
+    return text.substr(0, maxLength) + '...';
+  };
 
   return (
     <>
-    <div className="education-blog-container">
-      <div className="education-blog-content">
-        <h2 className="education-blog-title">Education Blog</h2>
-        <p className="education-blog-subtitle">
-          Stay updated with the latest insights, tips, and guides for your international education journey
-        </p>
-      </div>
-    </div> 
 
 
+      <div className="blog-posts-container">
+        <div className="blog-controls">
+          <div className="search-container">
+            <input
+              type="text"
+              placeholder="Search blogs..."
+              value={searchTerm}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setCurrentPage(1); // Reset to first page on search
+              }}
+              className="search-input"
+            />
+          </div>
+          
+          <div className="filter-container">
+            <select 
+              value={selectedTag} 
+              onChange={(e) => {
+                setSelectedTag(e.target.value);
+                setCurrentPage(1); // Reset to first page on filter change
+              }}
+              className="tag-filter"
+            >
+              <option value="">All Tags</option>
+              {allTags.map((tag, index) => (
+                <option key={index} value={tag}>{tag}</option>
+              ))}
+            </select>
+          </div>
+        </div>
 
-     <div className="blog-posts-container">
-      <h1 className="section-title">Latest Articles</h1>
-      <p className="section-subtitle">Insights and tips for your international education journey</p>
-      <div className="blog-posts-grid">
-        {blogs.map((post) => {
-        const { _id, title, content, images, tags } = post;
-        return (
-          <article key={_id} className="blog-post-card">
-            <div className="blog-post-image">
-              {post.images[0] ? (
-                <img src={`${base_url}/${images[0]}`} alt={title} />
-              ) : (
-                <div className="image-placeholder">
-                  <span className="placeholder-icon">🖼️</span>
-                </div>
-              )}
+        <h1 className="section-title">Latest Articles</h1>
+        <p className="section-subtitle">Insights and tips for your international education journey</p>
+        
+        {loading ? (
+          <div className="loading-container">
+            <div className="loading-spinner"></div>
+            <p>Loading blog posts...</p>
+          </div>
+        ) : error ? (
+          <div className="error-container">
+            <p className="error-message">{error}</p>
+            <button onClick={getBlogs} className="retry-button">Try Again</button>
+          </div>
+        ) : filteredBlogs.length === 0 ? (
+          <div className="no-results">
+            <p>No blog posts found matching your criteria.</p>
+            {(searchTerm || selectedTag) && (
+              <button 
+                onClick={() => {
+                  setSearchTerm('');
+                  setSelectedTag('');
+                }} 
+                className="clear-filters-button"
+              >
+                Clear Filters
+              </button>
+            )}
+          </div>
+        ) : (
+          <>
+            <div className="blog-posts-grid">
+              {currentBlogs.map((post) => {
+                const { _id, title, content, images, tags, createdAt } = post;
+                return (
+                  <article key={_id} className="blog-post-card">
+                    <div className="blog-post-image">
+                      {images && images[0] ? (
+                        <img src={`${base_url}/${images[0]}`} alt={title} />
+                      ) : (
+                        <div className="image-placeholder">
+                          <span className="placeholder-icon">🖼️</span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="blog-post-content">
+                      <div className="blog-post-meta">
+                        <span className="author">
+                          <span className="author-icon">👤</span>
+                          Nexture Education
+                        </span>
+                        <span className="date">
+                          <span className="date-icon">📅</span>
+                          {formatDate(createdAt)}
+                        </span>
+                      </div>
+                      
+                      <h3 className="blog-post-title">{title}</h3>
+                      
+                      <p className="blog-post-excerpt">{truncateText(content, 150)}</p>
+                      
+                      <div className="blog-post-footer">
+                        <div className="tags-container">
+                          {tags && tags.map((tag, index) => (
+                            <span 
+                              key={index} 
+                              className="tag"
+                              onClick={() => {
+                                setSelectedTag(tag);
+                                setCurrentPage(1);
+                              }}
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        
+                        <Link to={`/blog/${_id}`} className="read-more-link">
+                          Read More
+                          <span className="arrow-icon">→</span>
+                        </Link>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
             
-            <div className="blog-post-content">
-              <div className="blog-post-meta">
-                <span className="author">
-                  <span className="author-icon">👤</span>
-                 
-                </span>
-                <span className="date">
-                  <span className="date-icon">📅</span>
-                  
-                </span>
+            {/* Pagination */}
+            {filteredBlogs.length > blogsPerPage && (
+              <div className="pagination">
+                {Array.from({ length: Math.ceil(filteredBlogs.length / blogsPerPage) }).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => paginate(index + 1)}
+                    className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
               </div>
-              
-              <h3 className="blog-post-title">{title}</h3>
-              
-              <p className="blog-post-excerpt">{content}</p>
-              
-              <div className="blog-post-footer">
-                <div className="tags-container">
-                  {post.tags.map((tag, index) => (
-                    <span key={index} className="tag">{tag}</span>
-                  ))}
-                </div>
-                
-                <a href="#" className="read-more-link">
-                  
-                  <span className="arrow-icon">→</span>
-                </a>
-              </div>
-            </div>
-          </article>
-        );
-      })}
+            )}
+          </>
+        )}
       </div>
-    </div>
     </>
-  )
-}
+  );
+};
 
-export default BlogPage
+export default BlogPage;

@@ -21,10 +21,11 @@ const consultationRoutes = require('./routes/consultation');
 app.use(helmet());
 app.use(compression());
 app.use(cors({
-    origin: ['http://localhost:5173'],
+    origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174', 'http://127.0.0.1:5173', 'http://127.0.0.1:3000'],
     credentials: true,  
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
+    optionsSuccessStatus: 200
 }))
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
