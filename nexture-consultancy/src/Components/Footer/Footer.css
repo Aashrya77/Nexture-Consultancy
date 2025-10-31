@@ -13,7 +13,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #8B5CF6, #A855F7, #EC4899);
+  background: #8B5CF6;
 }
 
 .footer-container {
@@ -44,7 +44,7 @@
 .footer-brand h3 {
   font-size: 1.75rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #A855F7, #EC4899);
+  background: #8B5CF6;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

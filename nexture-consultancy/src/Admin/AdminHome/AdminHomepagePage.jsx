@@ -13,7 +13,8 @@ const AdminHomepagePage = () => {
   const [id, setId] = React.useState({}); // Replace with your actual ID
   const getHomepageData = async () => {
     try {
-      const response = await axios.get(`${base_url}/api/home`);
+      const response = await axios.get(`${base_url}/api/admin/home`);
+      console.log(response)
       setId(response.data.data[0]._id);
     } catch (error) {
       console.error("Error fetching homepage data:", error);

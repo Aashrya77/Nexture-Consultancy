@@ -7,8 +7,8 @@
 .hero-slideshow {
   position: relative;
   width: 100%;
-  height: 400px; /* Fixed height */
-  max-width: 600px; /* Fixed max width */
+  height: 500px; /* Increased height */
+  max-width: 700px; /* Increased max width */
 }
 
 .slideshow-container {
@@ -139,8 +139,8 @@
 
 .hero-content-wrapper {
   display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: 80px;
+  grid-template-columns: 1fr 500px;
+  gap: 60px;
   align-items: center;
   min-height: 600px;
 }
@@ -233,6 +233,61 @@
   align-items: center;
   flex-wrap: wrap;
   animation: fadeInUp 0.8s ease-out 0.8s both;
+}
+/* Add these skeleton loader styles to your HomePage.css */
+
+/* Skeleton Animation */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 0px,
+    #e0e0e0 40px,
+    #f0f0f0 80px
+  );
+  background-size: 200px 100%;
+  animation: skeleton-loading 1.5s infinite ease-in-out;
+  border-radius: 8px;
+}
+
+.skeleton-badge {
+  border-radius: 20px;
+}
+
+.skeleton-title {
+  border-radius: 8px;
+}
+
+.skeleton-text {
+  border-radius: 4px;
+}
+
+.skeleton-button {
+  border-radius: 8px;
+}
+
+.skeleton-image {
+  border-radius: 12px;
+}
+
+/* Dark mode support for skeletons */
+@media (prefers-color-scheme: dark) {
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      #2a2a2a 0px,
+      #3a3a3a 40px,
+      #2a2a2a 80px
+    );
+  }
 }
 
 .btn-modern-primary {
@@ -646,7 +701,7 @@
   margin-bottom: 32px;
   animation: fadeInUp 0.8s ease-out 0.2s both;
   color: #1f2937;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-primary);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -727,7 +782,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 80px 20px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   background: linear-gradient(135deg, #fafafa 0%, #f8fafc 100%);
   border-radius: 20px;
   margin-top: 40px;
@@ -909,7 +964,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 60px 20px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-primary);
 }
 
 .destinations-header {
@@ -1038,7 +1093,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 60px 20px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-primary);
   background-color: #f9fafb;
 }
 
@@ -1213,7 +1268,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 60px 20px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-primary);
 }
 
 .success-stories-header {
@@ -1293,7 +1348,7 @@
   top: -8px;
   font-size: 2rem;
   color: #d1d5db;
-  font-family: serif;
+  font-family: var(--font-primary);
 }
 
 .testimonial::after {
@@ -1303,7 +1358,7 @@
   bottom: -16px;
   font-size: 2rem;
   color: #d1d5db;
-  font-family: serif;
+  font-family: var(--font-primary);
 }
 
 .student-name {
@@ -1530,6 +1585,15 @@
   .hero-content-wrapper {
     grid-template-columns: 1fr;
     gap: 40px;
+  }
+  
+  .hero-slideshow {
+    height: 450px;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+  
+  .hero-content-wrapper {
     text-align: center;
   }
 
@@ -1550,6 +1614,11 @@
 @media (max-width: 768px) {
   .modern-hero-container {
     padding: 0 20px;
+  }
+  
+  .hero-slideshow {
+    height: 400px;
+    max-width: 600px;
   }
 
   .modern-hero-title {
@@ -1591,6 +1660,11 @@
 @media (max-width: 480px) {
   .modern-hero-container {
     padding: 0 15px;
+  }
+  
+  .hero-slideshow {
+    height: 350px;
+    max-width: 100%;
   }
 
   .modern-hero-title {

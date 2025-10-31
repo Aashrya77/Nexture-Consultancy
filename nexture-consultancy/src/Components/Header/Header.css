@@ -31,7 +31,7 @@
 }
 
 .header-bar {
-  background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  background: #8B5CF6;
   padding: 6px 0;
   position: relative;
   overflow: hidden;
@@ -74,7 +74,7 @@
   gap: 0.6rem;
   color: #ffffff;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   transition: all 0.3s ease;
 }
 
@@ -96,7 +96,7 @@
 }
 
 .tagline {
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   font-size: 15px;
   letter-spacing: 0.5px;
   text-align: right;
@@ -118,7 +118,7 @@
 
 .header-logo {
   font-size: 2rem;
-  font-weight: 800;
+  font-weight: var(--font-weight-bold);
   background: linear-gradient(135deg, #8B5CF6, #EC4899);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -126,14 +126,14 @@
   text-decoration: none;
   transition: all 0.3s ease;
   position: relative;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-primary);
   letter-spacing: -0.02em;
   display: flex;
   align-items: center;
 }
 
 .header-logo img {
-  width: 60px;
+  width: 150px;
   height: 60px;
   object-fit: contain;
   border-radius: 8px;
@@ -157,19 +157,19 @@
 }
 
 .cta-btn {
-  background: linear-gradient(135deg, #8B5CF6, #EC4899);
+  background: #8B5CF6;
   color: #ffffff;
   padding: 0.75rem 1.75rem;
   border: none;
   border-radius: 0.75rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
   letter-spacing: 0.02em;
 }
 
@@ -185,7 +185,7 @@
 }
 
 .cta-btn:hover {
-  background: linear-gradient(135deg, #7C3AED, #DB2777);
+  background: linear-gradient(135deg, #7C3AED, #8B5CF6);
   color: #ffffff;
   text-decoration: none;
   transform: translateY(-3px);
@@ -215,13 +215,13 @@
 .header-nav-link {
   color: #374151;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   font-size: 0.9rem;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   transition: all 0.3s ease;
   position: relative;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-primary);
 }
 
 .header-nav-link:hover {
@@ -370,7 +370,7 @@
   right: 0;
   width: 280px;
   height: 100vh;
-  background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  background: #8B5CF6;
   padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
@@ -388,7 +388,7 @@
 .header-mobile-nav-link {
   color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   padding: 1rem 0;
   font-size: 1.1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -424,7 +424,7 @@
 
 .header-user-greeting {
   color: var(--text-color);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   font-size: 0.9rem;
   white-space: nowrap;
 }
@@ -440,7 +440,7 @@
 
 .header-mobile-user-greeting {
   color: white;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   font-size: 1rem;
   text-align: center;
   margin-bottom: 1rem;
@@ -462,7 +462,7 @@
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0.5rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -486,7 +486,7 @@
   padding: 8px 16px;
   border-radius: 6px;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   font-size: 0.9rem;
   transition: all 0.3s ease;
   cursor: pointer;
@@ -508,7 +508,7 @@
   padding: 8px 16px;
   border-radius: 6px;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   font-size: 0.9rem;
   transition: all 0.3s ease;
   cursor: pointer;

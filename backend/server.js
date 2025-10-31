@@ -21,23 +21,17 @@ const consultationRoutes = require('./routes/consultation');
 app.use(helmet());
 app.use(compression());
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174', 'http://127.0.0.1:5173', 'http://127.0.0.1:3000', 'https://nexture-consultancy.onrender.com'],
+    origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174', 'http://127.0.0.1:5173', 'http://127.0.0.1:3000', 'https://nexture.edu.np'],
     credentials: true,  
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
     optionsSuccessStatus: 200
-}))
-
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
-    setHeaders: (res, filePath) => {
-    res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
-  }
 }));
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 100,
   message: 'Too many requests from this IP, please try again later.'
 });
 app.use(limiter);
@@ -46,7 +40,12 @@ app.use(limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-
+// Uploads folder - KEEP THIS HERE (it's fine)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
+    setHeaders: (res, filePath) => {
+    res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+  }
+}));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -58,13 +57,10 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// API Routes
-
+// ✅ API Routes - MUST COME BEFORE STATIC FILES
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
-
 app.use('/api/team', teamRoutes);
-
 app.use('/api/home', uploadRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/consultation', consultationRoutes);
@@ -73,7 +69,6 @@ app.use('/api/consultation', consultationRoutes);
 app.use((err, req, res, next) => {
   console.error('Error:', err.stack);
    
-  // Mongoose validation error
   if (err.name === 'ValidationError') {
     const errors = Object.values(err.errors).map(e => e.message);
     return res.status(400).json({
@@ -82,8 +77,7 @@ app.use((err, req, res, next) => {
       errors
     });
   }
-  
-  // Mongoose duplicate key error
+ 
   if (err.code === 11000) {
     const field = Object.keys(err.keyValue)[0];
     return res.status(400).json({
@@ -91,23 +85,21 @@ app.use((err, req, res, next) => {
       message: `${field} already exists`
     });
   }
-  
-  // JWT errors
+ 
   if (err.name === 'JsonWebTokenError') {
     return res.status(401).json({
       success: false,
       message: 'Invalid token'
     });
   }
-  
+ 
   if (err.name === 'TokenExpiredError') {
     return res.status(401).json({
       success: false,
       message: 'Token expired'
     });
   }
-  
-  // Default error
+ 
   res.status(err.status || 500).json({
     success: false,
     message: err.message || 'Internal Server Error',
@@ -115,12 +107,12 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 404 handler
-app.use('*', (req, res) => {
-  res.status(404).json({
-    success: false,
-    message: 'API endpoint not found'
-  });
+// ✅ MOVED TO END - Static files and catch-all AFTER API routes
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// Catch-all route for frontend - MUST BE LAST
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
@@ -130,7 +122,7 @@ const start = async () => {
     await connectDB(process.env.MONGODB_URI);
     app.listen(PORT, () => {
       console.log(`🚀 Server is running on port ${PORT}`);
-});
+    });
   } catch (error) {
     console.error('❌ Server initialization error:', error);
     process.exit(1);

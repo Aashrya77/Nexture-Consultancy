@@ -6,8 +6,10 @@
 }
 
 /* Hero Section */
-.hero-section {
-  background: linear-gradient(135deg, #f8faff 0%, #e0e7ff 100%);
+.hero-section-uk {
+  background-image: url('/UK.jpg');
+  background-size: cover;
+  background-position: center;
   min-height: 60vh;
   position: relative;
   display: flex;
@@ -15,6 +17,13 @@
   justify-content: flex-start;
   padding: 0 60px;
   overflow: hidden;
+}
+
+.hero-section-uk::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
 }
 
 .clouds-decoration {
@@ -144,7 +153,8 @@
   font-weight: 700;
   line-height: 1.1;
   margin: 0;
-  color: #1e3a8a;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .uk-text {

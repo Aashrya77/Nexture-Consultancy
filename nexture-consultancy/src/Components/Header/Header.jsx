@@ -43,7 +43,7 @@ export default function Header() {
       <div className="header-container">
         <div className="header-content">
           <Link to="/" className="header-logo">
-            <img src="/logo.jpeg" width={100} height={100} alt="Nexture Education" />
+            <img src="/logo.jpeg" width={300} height={200} alt="Nexture Education" />
           </Link>
           
           {/* Desktop Navigation */}
@@ -131,33 +131,6 @@ export default function Header() {
               <Link to="/contact" className="header-mobile-nav-link" onClick={toggleMobileMenu}>
                 Contact
               </Link>
-              {user ? (
-                <div className="header-mobile-user-menu">
-                  <span className="header-mobile-user-greeting">
-                    👋 Hi, {user.firstName || user.name}
-                  </span>
-                  {user.role === 'admin' && (
-                    <Link to="/admin" className="btn-secondary" onClick={toggleMobileMenu}>
-                      Admin Panel
-                    </Link>
-                  )}
-                  <button onClick={handleLogout} className="btn-outline">
-                    Logout
-                  </button>
-                </div>
-              ) : (
-                <div className="header-mobile-auth-buttons">
-                  <Link to="/login" className="btn-outline">
-                    Login
-                  </Link>
-                  <Link to="/register" className="btn-secondary">
-                    Register
-                  </Link>
-                  <Link to="/consultation" className="btn-primary">
-                    Book Consultation
-                  </Link>
-                </div>
-              )}
           </div>
         </div>
       </div>

@@ -6,8 +6,10 @@
 }
 
 /* Hero Section */
-.hero-section {
-  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+.hero-section-germany {
+  background-image: url('/Germany.jpg');
+  background-size: cover;
+  background-position: center;
   min-height: 60vh;
   position: relative;
   display: flex;
@@ -15,6 +17,13 @@
   justify-content: flex-start;
   padding: 0 60px;
   overflow: hidden;
+}
+
+.hero-section-germany::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
 }
 
 .clouds-decoration {
@@ -144,11 +153,20 @@
   font-weight: 700;
   line-height: 1.1;
   margin: 0;
-  color: #1e3a8a;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .germany-text {
   color: #dc2626;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: #f1f5f9;
+  margin-top: 16px;
+  max-width: 500px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
 }
 
 .skyline {

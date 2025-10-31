@@ -1,14 +1,14 @@
-const Blog = require('../models/Blog');
+const Blog = require('../models/Blog');    
 
 const getAllBlogs = async (req, res) => {
     try {
         const blogs = await Blog.find();
         res.status(200).json(blogs);
-        
-    } catch (error) {
-        res.status(500).json({ message: 'Server Error', error });        
+    } catch(error) {
+        res.status(500).json({msg: error.message})
     }
 }
+
 
 const createBlog = async (req, res) => {
     try {

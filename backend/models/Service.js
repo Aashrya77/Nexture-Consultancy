@@ -116,7 +116,6 @@ const serviceSchema = new mongoose.Schema({
 });
 
 // Create indexes
-serviceSchema.index({ slug: 1 });
 serviceSchema.index({ category: 1 });
 serviceSchema.index({ isActive: 1 });
 serviceSchema.index({ order: 1 });

@@ -1,0 +1,362 @@
+/* University Card Styles */
+.university-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  margin-bottom: 24px;
+}
+
+.university-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Header Section */
+.university-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px 24px 16px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.university-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.university-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.university-logo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #2c5aa0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.university-basic-info {
+  flex: 1;
+}
+
+.university-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.university-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #666;
+  font-size: 16px;
+  margin: 0 0 12px 0;
+}
+
+.location-icon {
+  font-size: 14px;
+}
+
+.university-ranking {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ranking-badge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.established-year {
+  color: #666;
+  font-size: 14px;
+  background: #f8f9fa;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+/* Body Section */
+.university-card-body {
+  padding: 0 24px 16px;
+}
+
+.university-description {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.university-highlights,
+.university-programs,
+.university-requirements {
+  margin-bottom: 20px;
+}
+
+.university-highlights h4,
+.university-programs h4,
+.university-requirements h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c5aa0;
+  margin: 0 0 12px 0;
+}
+
+.university-highlights ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.university-highlights li {
+  padding: 6px 0;
+  color: #555;
+  position: relative;
+  padding-left: 20px;
+}
+
+.university-highlights li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #28a745;
+  font-weight: bold;
+}
+
+.programs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.program-tag {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.program-tag.more {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.university-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail-label {
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.detail-value {
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+}
+
+.requirements-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.requirement-section h5 {
+  font-size: 14px;
+  color: #2c5aa0;
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.requirement-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.requirement-section li {
+  font-size: 13px;
+  color: #555;
+  padding: 4px 0;
+  padding-left: 16px;
+  position: relative;
+}
+
+.requirement-section li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #2c5aa0;
+}
+
+/* Footer Section */
+.university-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px 24px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.visit-website-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.visit-website-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-icon {
+  font-size: 16px;
+}
+
+.university-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: #f8f9fa;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn:hover {
+  background: #e9ecef;
+  transform: scale(1.1);
+}
+
+.favorite-btn:hover {
+  background: #ffebee;
+}
+
+.share-btn:hover {
+  background: #e3f2fd;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .university-card-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .university-logo {
+    width: 60px;
+    height: 60px;
+    align-self: center;
+  }
+
+  .university-name {
+    font-size: 20px;
+  }
+
+  .university-ranking {
+    justify-content: center;
+  }
+
+  .university-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .requirements-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .university-card-footer {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .visit-website-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .university-card {
+    margin: 0 -8px 16px;
+    border-radius: 12px;
+  }
+
+  .university-card-header,
+  .university-card-body,
+  .university-card-footer {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .university-name {
+    font-size: 18px;
+  }
+
+  .programs-list {
+    justify-content: center;
+  }
+}

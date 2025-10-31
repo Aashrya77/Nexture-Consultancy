@@ -4,7 +4,7 @@
   "description": "Backend API for Nexture Education platform",
   "main": "server.js",
   "scripts": {
-    "start": "node start.js",
+    "start": "node server.js",
     "dev": "nodemon start.js",
     "server": "node server.js",
     "init-db": "node scripts/init-db.js",

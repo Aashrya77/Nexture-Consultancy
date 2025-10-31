@@ -7,8 +7,29 @@ import axios from "axios";
 import base_url from "../../../config";
 import { services, destinations, courses, stories } from "../../Data/HomeData";
 
+// Loading Skeleton Component
+const HeroSkeleton = () => (
+  <div className="hero-content-wrapper">
+    <div className="hero-left">
+      <div className="skeleton skeleton-badge" style={{ width: '200px', height: '24px', marginBottom: '20px' }}></div>
+      <div className="skeleton skeleton-title" style={{ width: '80%', height: '60px', marginBottom: '15px' }}></div>
+      <div className="skeleton skeleton-title" style={{ width: '60%', height: '60px', marginBottom: '20px' }}></div>
+      <div className="skeleton skeleton-text" style={{ width: '90%', height: '20px', marginBottom: '10px' }}></div>
+      <div className="skeleton skeleton-text" style={{ width: '80%', height: '20px', marginBottom: '30px' }}></div>
+      <div style={{ display: 'flex', gap: '15px' }}>
+        <div className="skeleton skeleton-button" style={{ width: '200px', height: '50px' }}></div>
+        <div className="skeleton skeleton-button" style={{ width: '200px', height: '50px' }}></div>
+      </div>
+    </div>
+    <div className="hero-right">
+      <div className="skeleton skeleton-image" style={{ width: '100%', height: '400px', borderRadius: '12px' }}></div>
+    </div>
+  </div>
+);
+
 export default function HomePage() {
-  const [content, setContent] = useState(null || []);
+  // FIX 1: Initialize content as empty array (not null || [])
+  const [content, setContent] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -22,18 +43,41 @@ export default function HomePage() {
       ));
   };
 
+  // FIX 2: Return an array, not an object
+  const getDefaultContent = () => {
+    return [
+      {
+        _id: "default",
+        title: "Your Next Step to a Bright Future",
+        highlight: " with Nexture Education",
+        description:
+          "Expert guidance for study abroad and test preparation. We help students achieve their dreams of international education with personalized coaching and comprehensive support.",
+        images: [
+          "/WhatsApp Image 2025-09-03 at 16.20.16.jpeg",
+          "/WhatsApp Image 2025-09-03 at 16.20.12.jpeg",
+          "/WhatsApp Image 2025-09-03 at 16.20.11.jpeg"
+        ]
+      }
+    ];
+  };
+
   const getContent = async () => {
     try {
       const response = await axios.get(`${base_url}/api/home`);
-      if (response.statusText === "OK") {
-        setContent(response.data.data);
+      if (response.statusText === "OK" && response.data.data) {
+        // FIX 3: Ensure data is always an array
+        const contentData = Array.isArray(response.data.data) 
+          ? response.data.data 
+          : [response.data.data];
+        setContent(contentData);
       } else {
         setContent(getDefaultContent());
       }
-      setLoading(false);
     } catch (error) {
       console.error("Error fetching home content:", error);
       setContent(getDefaultContent());
+    } finally {
+      // FIX 4: Always set loading to false in finally block
       setLoading(false);
     }
   };
@@ -49,14 +93,15 @@ export default function HomePage() {
         setCurrentImageIndex((prevIndex) => 
           (prevIndex + 1) % content[0].images.length
         );
-      }, 4000); // Change image every 4 seconds
+      }, 4000);
 
       return () => clearInterval(interval);
     }
   }, [content]);
 
   const nextImage = () => {
-    if (content && content[0].images && content[0].images.length > 1) {
+    // FIX 5: Add optional chaining
+    if (content && content[0]?.images && content[0].images.length > 1) {
       setCurrentImageIndex((prevIndex) => 
         (prevIndex + 1) % content[0].images.length
       );
@@ -64,7 +109,8 @@ export default function HomePage() {
   };
 
   const prevImage = () => {
-    if (content && content[0].images && content[0].images.length > 1) {
+    // FIX 6: Add optional chaining
+    if (content && content[0]?.images && content[0].images.length > 1) {
       setCurrentImageIndex((prevIndex) => 
         prevIndex === 0 ? content[0].images.length - 1 : prevIndex - 1
       );
@@ -75,25 +121,17 @@ export default function HomePage() {
     setCurrentImageIndex(index);
   };
 
-const getDefaultContent = () => {
-  return {
-    hero: {
-      title: "Your Next Step to a Bright Future",
-      subtitle: "Your Trusted Education Partner",
-      description:
-        "Expert guidance for study abroad and test preparation. We help students achieve their dreams of international education with personalized coaching and comprehensive support.",
-        images: ["/WhatsApp Image 2025-09-03 at 16.20.16.jpeg", "/WhatsApp Image 2025-09-03 at 16.20.12.jpeg", "/WhatsApp Image 2025-09-03 at 16.20.11.jpeg"]
-    },
-  };
-};
   return (
     <div className="homepage">
       {/* Modern Hero Section */}
       <section className="modern-hero-section">
         <div className="modern-hero-container">
-          {content ? (
-            content.map((content) => {
-              const { title, description, images, _id, highlight } = content;
+          {/* FIX 7: Add loading skeleton */}
+          {loading ? (
+            <HeroSkeleton />
+          ) : content && content.length > 0 ? (
+            content.map((item) => {
+              const { title, description, images, _id, highlight } = item;
 
               return (
                 <div className="hero-content-wrapper" key={_id}>
@@ -103,7 +141,8 @@ const getDefaultContent = () => {
                     </div>
                     <h1 className="modern-hero-title">
                       {title}
-                      <span className="hero-highlight">{highlight}</span>
+                      {/* FIX 8: Add conditional rendering for highlight */}
+                      {highlight && <span className="hero-highlight">{highlight}</span>}
                     </h1>
                     <p className="modern-hero-subtitle">{description}</p>
                     <div className="hero-cta-wrapper">
@@ -123,7 +162,7 @@ const getDefaultContent = () => {
                         <img
                           src={
                             images && images.length > 0
-                              ? `${base_url}/` + images[currentImageIndex]
+                              ? `${base_url}${images[currentImageIndex]}`
                               : "https://via.placeholder.com/600x400"
                           }
                           alt={`Hero ${currentImageIndex + 1}`}
@@ -157,12 +196,13 @@ const getDefaultContent = () => {
               );
             })
           ) : (
+            // Fallback content
             <div className="hero-content-wrapper">
               <div className="hero-left">
                 <div className="hero-badge">Your Trusted Education Partner</div>
                 <h1 className="modern-hero-title">
                   Your Next Step to a Bright Future
-                  <span className="hero-highlight">Nexture Education</span>
+                  <span className="hero-highlight"> with Nexture Education</span>
                 </h1>
                 <p className="modern-hero-subtitle">
                   Expert guidance for study abroad and test preparation. We help
@@ -188,7 +228,7 @@ const getDefaultContent = () => {
                 />
               </div>
             </div>
-          )}
+          )} 
         </div>
       </section>
 
@@ -298,13 +338,6 @@ const getDefaultContent = () => {
             </div>
           ))}
         </div>
-
-        {/* <div className="test-prep-footer">
-          <button className="view-all-courses-btn">
-            View All Courses
-            <span className="arrow-icon">→</span>
-          </button>
-        </div> */}
       </div>
 
       {/* Testimonials */}

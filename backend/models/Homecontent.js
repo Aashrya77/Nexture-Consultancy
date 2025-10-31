@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose')
 
 const HomeContentSchema = new mongoose.Schema({
     title: {
@@ -20,4 +20,4 @@ const HomeContentSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 const HomeContent = mongoose.model('HomeContent', HomeContentSchema);
-export default HomeContent;
+module.exports = HomeContent
