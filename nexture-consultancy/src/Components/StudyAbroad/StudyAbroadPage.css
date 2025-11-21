@@ -189,8 +189,8 @@
 
 .study-countries-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
 }
 
 .study-country-card {
@@ -201,64 +201,43 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: var(--shadow-sm);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
 }
 
 .study-country-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--purple-300);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  border-color: var(--purple-400);
 }
 
-.study-country-card.active {
-  border-color: var(--purple-500);
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
-}
-
-.study-country-header {
+.study-country-card-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1rem;
 }
 
-.study-country-flag {
-  font-size: 2rem;
-}
-
-.study-country-info {
-  flex: 1;
+.study-country-flag-large {
+  font-size: 4rem;
+  display: block;
 }
 
 .study-country-name {
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--gray-900);
-  margin-bottom: 0.25rem;
+  margin: 0;
 }
 
 .study-country-universities {
   color: var(--purple-600);
-  font-weight: 500;
-  font-size: 0.875rem;
-}
-
-.study-country-toggle {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--purple-600);
-  width: 2rem;
-  height: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: var(--purple-100);
-}
-
-.study-country-description {
-  color: var(--gray-600);
-  line-height: 1.6;
-  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin: 0;
 }
 
 .study-country-details {

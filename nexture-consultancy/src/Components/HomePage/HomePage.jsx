@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./HomePage.css";
 import axios from "axios";
 import base_url from "../../../config";
@@ -32,6 +32,7 @@ export default function HomePage() {
   const [content, setContent] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const navigate = useNavigate();
 
   const renderStars = (rating) => {
     return Array(rating)
@@ -121,6 +122,24 @@ export default function HomePage() {
     setCurrentImageIndex(index);
   };
 
+  const handleViewAllDestinations = () => {
+    navigate('/study-abroad');
+  };
+
+  const handleReadMoreStories = () => {
+    navigate('/about');
+  };
+
+  const handleServiceClick = (serviceTitle) => {
+    if (serviceTitle === 'Study Abroad Consulting') {
+      navigate('/study-abroad');
+    } else if (serviceTitle === 'Test Preparation') {
+      navigate('/test-prep/ielts');
+    } else if (serviceTitle === 'Career Counseling') {
+      navigate('/consultation');
+    }
+  };
+
   return (
     <div className="homepage">
       {/* Modern Hero Section */}
@@ -136,9 +155,9 @@ export default function HomePage() {
               return (
                 <div className="hero-content-wrapper" key={_id}>
                   <div className="hero-left">
-                    <div className="hero-badge">
+                    {/* <div className="hero-badge">
                       Your Trusted Education Partner
-                    </div>
+                    </div> */}
                     <h1 className="modern-hero-title">
                       {title}
                       {/* FIX 8: Add conditional rendering for highlight */}
@@ -255,7 +274,10 @@ export default function HomePage() {
                 <p className="service-description">{service.description}</p>
               </div>
 
-              <button className="learn-more-button">
+              <button 
+                className="learn-more-button"
+                onClick={() => handleServiceClick(service.title)}
+              >
                 {service.buttonText}
               </button>
             </div>
@@ -274,22 +296,27 @@ export default function HomePage() {
 
         <div className="destinations-grid">
           {destinations.map((destination) => (
-            <div key={destination.id} className="destination-card">
-              <div className="flag-container">
+            <div 
+              key={destination.id} 
+              className="destination-card"
+              onClick={() => navigate(destination.routePath)}
+            >
+              <div className="destination-card-content">
                 <span className="flag-icon">{destination.flag}</span>
+                <h3 className="destination-title">{destination.country}</h3>
+                <p className="destination-universities">
+                  {destination.universities}
+                </p>
               </div>
-
-              <h3 className="destination-title">{destination.country}</h3>
-
-              <p className="destination-universities">
-                {destination.universities}
-              </p>
             </div>
           ))}
         </div>
 
         <div className="destinations-footer">
-          <button className="view-all-button">
+          <button 
+            className="view-all-button"
+            onClick={handleViewAllDestinations}
+          >
             View All Destinations
             <span className="arrow-icon">→</span>
           </button>
@@ -308,6 +335,9 @@ export default function HomePage() {
         <div className="courses-grid">
           {courses.map((course) => (
             <div key={course.id} className="course-card">
+              {course.discount && (
+                <div className="course-discount-badge">{course.discount}</div>
+              )}
               <div className="course-header">
                 <div className="course-test-name">{course.testName}</div>
                 <div className="course-category">{course.category}</div>
@@ -352,21 +382,41 @@ export default function HomePage() {
         <div className="stories-grid">
           {stories.map((story) => (
             <div key={story.id} className="story-card">
-              <div className="rating-container">
-                {renderStars(story.rating)}
+              <div className="story-image-wrapper">
+                <img 
+                  src={story.image} 
+                  alt={story.name}
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/300x200?text=' + story.name;
+                  }}
+                />
               </div>
 
-              <blockquote className="testimonial">
-                "{story.testimonial}"
-              </blockquote>
+              <div className="story-card-content">
+                <div className="rating-container">
+                  {renderStars(story.rating)}
+                </div>
 
-              <div className="student-name">{story.studentName}</div>
+                <h4 className="story-title">{story.title}</h4>
+
+                <blockquote className="testimonial">
+                  "{story.testimonial}"
+                </blockquote>
+
+                <p className="student-name">– {story.name}</p>
+                <p className="student-program">{story.program}</p>
+              </div>
             </div>
           ))}
         </div>
 
         <div className="success-stories-footer">
-          <button className="read-more-btn">Read More Success Stories</button>
+          <button 
+            className="read-more-btn"
+            onClick={handleReadMoreStories}
+          >
+            Read More Success Stories
+          </button>
         </div>
       </div>
 

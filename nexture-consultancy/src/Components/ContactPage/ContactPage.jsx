@@ -180,9 +180,6 @@ export default function ContactPage() {
                 <Link to="/study-abroad" className="quick-link">
                   🌍 Study Abroad Programs
                 </Link>
-                <Link to="/preparation-classes" className="quick-link">
-                  📚 Test Preparation
-                </Link>
               </div>
             </div>
           </div>

@@ -179,7 +179,7 @@ const PTEPage = () => {
             </div>
           </div>
           <div className="test-prep-hero-image">
-            <img src="/api/placeholder/600/400" alt="PTE Academic Preparation" />
+            <img src="\pte.png" alt="PTE Academic Preparation" />
           </div>
         </div>
       </section>

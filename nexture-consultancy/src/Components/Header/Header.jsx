@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
-import { FaFacebook, FaInstagram, FaTwitter, FaPhone, FaEnvelope, FaMapMarkerAlt, FaTiktok } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaTwitter, FaPhone, FaEnvelope, FaMapMarkerAlt, FaTiktok, FaChevronDown } from 'react-icons/fa';
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const user = null; // assuming user is null for now, you should replace this with actual user data
   const handleLogout = () => {
     // implement logout logic here
@@ -14,6 +15,15 @@ export default function Header() {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  const countries = [
+    { name: 'Australia', flag: '🇦🇺', slug: 'australia' },
+    { name: 'USA', flag: '🇺🇸', slug: 'united-states' },
+    { name: 'New Zealand', flag: '🇳🇿', slug: 'new-zealand' },
+    { name: 'UK', flag: '🇬🇧', slug: 'united-kingdom' },
+    { name: 'Germany', flag: '🇩🇪', slug: 'germany' },
+    { name: 'Canada', flag: '🇨🇦', slug: 'canada' },
+  ];
 
   return (
     <header className="header">
@@ -32,6 +42,11 @@ export default function Header() {
             <FaMapMarkerAlt className="contact-icon" />
             <span>Kathmandu, Nepal</span>
           </div>
+        </div>
+        <div className="header-bar-links">
+          <Link to="/counselor-dashboard" style={{color: 'white', textDecoration: 'underline'}} className="">
+            Counselor Dashboard
+          </Link>
         </div>
         <div className="socials">
           <Link to={"https://www.tiktok.com/@nextureeducation"}><FaTiktok /></Link>
@@ -54,9 +69,31 @@ export default function Header() {
             <Link to="/about" className="header-nav-link" onClick={() => toggleMobileMenu()}>
               About
             </Link>
-            <Link to="/study-abroad" className="header-nav-link" onClick={() => toggleMobileMenu()}>
-              Study Abroad
-            </Link>
+            <div 
+              className="header-nav-item-dropdown"
+              onMouseEnter={() => setIsDropdownOpen(true)}
+              onMouseLeave={() => setIsDropdownOpen(false)}
+            >
+              <Link to="/study-abroad" className="header-nav-link">
+                Study Abroad
+                <FaChevronDown className={`dropdown-icon ${isDropdownOpen ? 'active' : ''}`} />
+              </Link>
+              {isDropdownOpen && (
+                <div className="header-dropdown-menu">
+                  {countries.map((country) => (
+                    <Link
+                      key={country.slug}
+                      to={`/study/${country.slug}`}
+                      className="header-dropdown-item"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <span className="country-flag">{country.flag}</span>
+                      <span className="country-name">{country.name}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
             {/* <Link to="/preparation-classes" className="header-nav-link">
               Test Prep
             </Link> */}
@@ -130,6 +167,9 @@ export default function Header() {
               </Link>
               <Link to="/contact" className="header-mobile-nav-link" onClick={toggleMobileMenu}>
                 Contact
+              </Link>
+              <Link to="/counselor-dashboard" className="header-mobile-nav-link" onClick={toggleMobileMenu}>
+                Counselor Dashboard
               </Link>
           </div>
         </div>

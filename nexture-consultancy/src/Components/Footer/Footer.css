@@ -86,7 +86,6 @@
   text-decoration: none;
   background: linear-gradient(135deg, #8B5CF6, #A855F7);
   transform: translateY(-3px) scale(1.1);
-  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
 }
 
 .footer-section h4 {
@@ -199,7 +198,6 @@
   margin-top: 3rem;
   padding-top: 2rem;
   text-align: center;
-  background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
   border-radius: 12px 12px 0 0;
 }

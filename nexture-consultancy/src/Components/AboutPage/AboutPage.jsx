@@ -50,7 +50,7 @@ export default function AboutPage() {
       setError('');
       
       const response = await axios.get(`${base_url}/api/team`);
-      
+      console.log(response)
       if (response.data.success) {
         setTeam(response.data.data);
       } else {
@@ -75,6 +75,16 @@ export default function AboutPage() {
 
   return (
     <div className="about-page">
+
+      {/* Hero Section */}
+      <section className="about-hero">
+        <div className="about-hero-container">
+          <h1 className="about-hero-title">About Nexture Education</h1>
+          <p className="about-hero-subtitle">
+            A decade of excellence in international education consulting
+          </p>
+        </div>
+      </section>
 
       {/* Story Section */}
       <section className="about-story">

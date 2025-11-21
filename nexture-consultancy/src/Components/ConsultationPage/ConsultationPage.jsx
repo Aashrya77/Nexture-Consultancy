@@ -136,22 +136,18 @@ export default function ConsultationPage() {
 
   const testimonials = [
     {
-      name: 'Sarah Johnson',
-      program: 'MBA, Harvard University',
-      image: 'https://randomuser.me/api/portraits/women/44.jpg',
-      quote: 'The consultation session was incredibly helpful. My counselor provided detailed insights about MBA programs and helped me craft a compelling application strategy.'
-    },
+      name: 'Bimal Lungeli Magar',
+      program: 'Student in Australia',
+      image: '/Bimal.jpg',
+      title: 'Smooth and Stress-Free!',
+      quote: 'From choosing my university to visa approval, the Nexture team was with me every step.'
+    },   
     {
-      name: 'Rahul Sharma',
-      program: 'MS Computer Science, University of Toronto',
-      image: 'https://randomuser.me/api/portraits/men/32.jpg',
-      quote: 'I was confused about which country to choose for my studies. The consultation cleared all my doubts and helped me make an informed decision.'
-    },
-    {
-      name: 'Emma Wilson',
-      program: 'Bachelor of Arts, University of Melbourne',
-      image: 'https://randomuser.me/api/portraits/women/68.jpg',
-      quote: 'The scholarship guidance I received during my consultation was invaluable. I ended up receiving a 50% tuition waiver!'
+      name: 'Sandhya Dhakal',
+      program: 'Student in Canada',
+      image: '/sandhya.jpg',
+      title: 'Truly Reliable!',
+      quote: 'They made my dream of studying in Canada possible. Highly recommend their services!'
     }
   ];
 
@@ -312,7 +308,7 @@ export default function ConsultationPage() {
               alt="Student consultation" 
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = "https://images.unsplash.com/photo-1552581234-26160f608093?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80";
+                e.target.src = "\consultation.jpg";
               }}
             />
           </div>
@@ -637,8 +633,9 @@ export default function ConsultationPage() {
                   <img src={testimonial.image} alt={testimonial.name} />
                 </div>
                 <div className="consultation-testimonial-content">
+                  <h4 className="consultation-testimonial-title">{testimonial.title}</h4>
                   <p className="consultation-testimonial-quote">"{testimonial.quote}"</p>
-                  <h4 className="consultation-testimonial-name">{testimonial.name}</h4>
+                  <p className="consultation-testimonial-name">– {testimonial.name}</p>
                   <p className="consultation-testimonial-program">{testimonial.program}</p>
                 </div>
               </div>

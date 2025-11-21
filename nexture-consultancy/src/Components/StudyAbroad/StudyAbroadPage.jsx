@@ -114,20 +114,14 @@ export default function StudyAbroadPage() {
             {countries.map((country, index) => (
               <div 
                 key={index} 
-                className={`study-country-card ${selectedCountry === index ? 'active' : ''}`}
+                className="study-country-card"
                 onClick={() => handleCountryClick(index, country.routePath)}
               >
-                <div className="study-country-header">
-                  <span className="study-country-flag">{country.flag}</span>
-                  <div className="study-country-info">
-                    <h3 className="study-country-name">{country.name}</h3>
-                    <p className="study-country-universities">{country.universities}+ Universities</p>
-                  </div>
-                  <span className="study-country-toggle">
-                    {selectedCountry === index ? '−' : '+'}
-                  </span>
+                <div className="study-country-card-content">
+                  <span className="study-country-flag-large">{country.flag}</span>
+                  <h3 className="study-country-name">{country.name}</h3>
+                  <p className="study-country-universities">{country.universities}+ Universities</p>
                 </div>
-                <p className="study-country-description">{country.description}</p>
               </div>
             ))}
           </div>

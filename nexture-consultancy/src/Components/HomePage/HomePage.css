@@ -17,7 +17,6 @@
   height: 100%;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
 }
 
 .hero-image {
@@ -102,7 +101,7 @@
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding: 15px 0;
+  padding: 5px 0;
 }
 
 .modern-hero-section::before {
@@ -142,7 +141,7 @@
   grid-template-columns: 1fr 500px;
   gap: 60px;
   align-items: center;
-  min-height: 600px;
+  min-height: 400px;
 }
 
 .hero-content {
@@ -188,10 +187,11 @@
   background-clip: text;
   position: relative;
   display: block;
+  margin-top: 8px;
 }
 
 .modern-hero-subtitle {
-  font-size: 1.2rem;
+  font-size: 0.95rem;
   line-height: 1.7;
   margin-bottom: 40px;
   color: #6b7280;
@@ -229,7 +229,7 @@
 
 .hero-cta-wrapper {
   display: flex;
-  gap: 16px;
+  gap: 20px;
   align-items: center;
   flex-wrap: wrap;
   animation: fadeInUp 0.8s ease-out 0.8s both;
@@ -695,10 +695,10 @@
 }
 
 .modern-hero-title {
-  font-size: 4.5rem;
+  font-size: 2.75rem;
   font-weight: 900;
-  line-height: 1.1;
-  margin-bottom: 32px;
+  line-height: 1.3;
+  margin-bottom: 16px;
   animation: fadeInUp 0.8s ease-out 0.2s both;
   color: #1f2937;
   font-family: var(--font-primary);
@@ -990,62 +990,55 @@
 
 .destinations-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 32px;
-  align-items: stretch;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
   margin-bottom: 50px;
 }
 
 .destination-card {
   background-color: #ffffff;
-  border-radius: 16px;
-  padding: 40px 32px;
-  text-align: center;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  border: 1px solid #f3f4f6;
-  transition: all 0.3s ease;
+  border-radius: 1rem;
+  padding: 2rem;
   cursor: pointer;
-  height: 100%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  border: 1px solid #f3f4f6;
+  text-align: center;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  min-height: 250px;
 }
 
 .destination-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  border-color: #a78bfa;
 }
 
-.flag-container {
-  width: 80px;
-  height: 80px;
-  border-radius: 16px;
-  margin: 0 auto 24px;
+.destination-card-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
+  gap: 1rem;
 }
 
 .flag-icon {
-  font-size: 2.5rem;
-  line-height: 1;
+  font-size: 4rem;
+  display: block;
 }
 
 .destination-title {
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #1f2937;
-  margin-bottom: 8px;
-  line-height: 1.3;
+  margin: 0;
 }
 
 .destination-universities {
-  font-size: 1rem;
-  color: #6b7280;
-  line-height: 1.6;
+  color: #8B5CF6;
+  font-weight: 600;
+  font-size: 0.95rem;
   margin: 0;
 }
 
@@ -1138,11 +1131,27 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 }
 
 .course-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.course-discount-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: linear-gradient(135deg, #EC4899, #8B5CF6);
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
 }
 
 .course-header {
@@ -1294,33 +1303,63 @@
 
 .stories-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 32px;
-  align-items: stretch;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
   margin-bottom: 50px;
 }
 
 .story-card {
   background-color: #ffffff;
   border-radius: 16px;
-  padding: 40px 32px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
   border: 1px solid #f3f4f6;
   transition: all 0.3s ease;
   cursor: pointer;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .story-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.story-image-wrapper {
+  height: 200px;
+  overflow: hidden;
+  background-color: #f3f4f6;
+}
+
+.story-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.story-card:hover .story-image-wrapper img {
+  transform: scale(1.05);
+}
+
+.story-card-content {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.story-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #8B5CF6;
+  margin-bottom: 12px;
+  margin-top: 0;
 }
 
 .rating-container {
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   display: flex;
   gap: 4px;
 }
@@ -1332,40 +1371,33 @@
 }
 
 .testimonial {
-  font-size: 1.125rem;
-  color: #374151;
-  line-height: 1.7;
-  margin: 0 0 24px 0;
+  font-size: 1rem;
+  color: #4a5568;
+  line-height: 1.6;
+  margin: 0 0 15px 0;
   font-style: italic;
   flex: 1;
-  position: relative;
 }
 
 .testimonial::before {
-  content: '"';
-  position: absolute;
-  left: -8px;
-  top: -8px;
-  font-size: 2rem;
-  color: #d1d5db;
-  font-family: var(--font-primary);
+  content: '';
 }
 
 .testimonial::after {
-  content: '"';
-  position: absolute;
-  right: -8px;
-  bottom: -16px;
-  font-size: 2rem;
-  color: #d1d5db;
-  font-family: var(--font-primary);
+  content: '';
 }
 
 .student-name {
-  font-size: 1.125rem;
   font-weight: 600;
-  color: #1f2937;
-  margin-top: auto;
+  color: #2d3748;
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+}
+
+.student-program {
+  color: #718096;
+  font-size: 0.85rem;
+  margin: 0;
 }
 
 .success-stories-footer {
@@ -1602,7 +1634,7 @@
   }
 
   .modern-hero-title {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
   .stats-panel {
@@ -1622,11 +1654,11 @@
   }
 
   .modern-hero-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .modern-hero-subtitle {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
   }
 
   .hero-cta-wrapper {
@@ -1668,12 +1700,12 @@
   }
 
   .modern-hero-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
     line-height: 1.2;
   }
 
   .modern-hero-subtitle {
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin-bottom: 1.5rem;
   }
 
@@ -1707,11 +1739,11 @@
   }
 
   .modern-hero-title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 
   .modern-hero-subtitle {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .btn-modern-primary,

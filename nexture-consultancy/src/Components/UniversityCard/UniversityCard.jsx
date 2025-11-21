@@ -108,14 +108,14 @@ const UniversityCard = ({ university, onVisitWebsite }) => {
           <span className="btn-icon">🌐</span>
           Visit Official Website
         </button>
-        <div className="university-actions">
+        {/* <div className="university-actions">
           <button className="action-btn favorite-btn" aria-label="Add to favorites">
             <span>❤️</span>
           </button>
           <button className="action-btn share-btn" aria-label="Share university">
             <span>📤</span>
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

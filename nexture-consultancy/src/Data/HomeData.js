@@ -30,25 +30,43 @@ const services = [
       id: 1,
       flag: '🇺🇸',
       country: 'United States',
-      universities: '500+ Universities'
+      universities: '150+ Universities',
+      routePath: '/study/united-states'
     },
     {
       id: 2,
       flag: '🇨🇦',
       country: 'Canada',
-      universities: '200+ Universities'
+      universities: '95+ Universities',
+      routePath: '/study/canada'
     },
     {
       id: 3,
       flag: '🇬🇧',
       country: 'United Kingdom',
-      universities: '150+ Universities'
+      universities: '130+ Universities',
+      routePath: '/study/united-kingdom'
     },
     {
       id: 4,
       flag: '🇦🇺',
       country: 'Australia',
-      universities: '100+ Universities'
+      universities: '85+ Universities',
+      routePath: '/study/australia'
+    },
+    {
+      id: 5,
+      flag: '🇩🇪',
+      country: 'Germany',
+      universities: '75+ Universities',
+      routePath: '/study/germany'
+    },
+    {
+      id: 6,
+      flag: '🇳🇿',
+      country: 'New Zealand',
+      universities: '45+ Universities',
+      routePath: '/study/new-zealand'
     }
   ];
 
@@ -58,17 +76,17 @@ const services = [
       testName: 'IELTS',
       category: 'English Proficiency',
       duration: '8 weeks',
-      price: '₹15,000'
+      price: '₹7,500',
+      discount: '50% OFF'
+
     },
-    
-
-
     {
       id: 2,
       testName: 'PTE',
       category: 'English Proficiency',
       duration: '6 weeks',
-      price: '₹18,000'
+      price: '₹3,500',
+      discount: '50% OFF'
     }
   ];
 
@@ -76,14 +94,20 @@ const services = [
     {
       id: 1,
       rating: 5,
-      testimonial: "Nexture Education made my dream of studying in Canada a reality. Their guidance was invaluable throughout the entire process.",
-      studentName: "Sarah Johnson"
+      name: 'Bimal Lungeli Magar',
+      program: 'Student in Australia',
+      image: '/Bimal.jpg',
+      title: 'Smooth and Stress-Free!',
+      testimonial: 'From choosing my university to visa approval, the Nexture team was with me every step.'
     },
     {
       id: 2,
       rating: 5,
-      testimonial: "The GMAT preparation course helped me achieve a score of 750. I couldn't have done it without their expert coaching.",
-      studentName: "Michael Chen"
+      name: 'Sandhya Dhakal',
+      program: 'Student in Canada',
+      image: '/sandhya.jpg',
+      title: 'Truly Reliable!',
+      testimonial: 'They made my dream of studying in Canada possible. Highly recommend their services!'
     }
   ];
 

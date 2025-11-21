@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.css';
-
+import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
+import { TiSocialTwitter } from "react-icons/ti";
+import { SlSocialInstagram } from "react-icons/sl";
+import { SlSocialLinkedin } from "react-icons/sl";
 export default function Footer() {
   return (
     <footer className="footer">
@@ -14,10 +17,9 @@ export default function Footer() {
               Your trusted partner in international education. We help students achieve their dreams of studying abroad with personalized guidance and expert support.
             </p>
             <div className="footer-social">
-              <a href="#">Facebook</a>
-              <a href="#">Twitter</a>
-              <a href="#">LinkedIn</a>
-              <a href="#">Instagram</a>
+          <Link to={"https://www.tiktok.com/@nextureeducation"}><FaTiktok /></Link>
+          <Link to={"https://www.instagram.com/nexture.education/"}><FaInstagram /></Link>
+          <Link to={"https://www.facebook.com/profile.php?id=61577074226283"}><FaFacebook /></Link>
             </div>
           </div>
           
@@ -37,15 +39,24 @@ export default function Footer() {
           <div className="footer-section">
             <h4>Contact</h4>
             <ul className="footer-contact">
-              <li>Sajha Entrance, Kathmandu</li>
+              <li>Nexture Education, Kathmandu</li>
               <li>Nepal</li>
               <li>Phone: +91 98765 43210</li>
               <li>Email: info@nextureeducation.com</li>
             </ul>
           </div>
+
+          {/* Legal Links */}
+          <div className="footer-section">
+            <h4>Legal</h4>
+            <ul className="footer-links">
+              <li><Link to="/terms-of-service">Terms of Service</Link></li>
+              <li><Link to="/privacy-policy">Privacy Policy</Link></li>
+            </ul>
+          </div>
           
           {/* Location Map */}
-          <div className="footer-section footer-map">
+          {/* <div className="footer-section footer-map">
             <h4>Our Location</h4>
             <div className="map-container">
               <iframe 
@@ -59,7 +70,7 @@ export default function Footer() {
                 title="Nexture Education Location"
               ></iframe>
             </div>
-          </div>
+          </div> */}
         </div>
         
         <div className="footer-bottom">

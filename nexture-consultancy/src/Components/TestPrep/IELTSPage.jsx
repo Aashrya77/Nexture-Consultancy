@@ -170,7 +170,7 @@ const IELTSPage = () => {
             </div>
           </div>
           <div className="test-prep-hero-image">
-            <img src="/api/placeholder/600/400" alt="IELTS Preparation" />
+            <img src="\ielts.jpg" alt="IELTS Preparation" />
           </div>
         </div>
       </section>

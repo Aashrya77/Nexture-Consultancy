@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // Import authentication context
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './Components/ProtectedRoute';
+import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
 
 // Import layout
 import PublicLayout from './Components/PublicLayout';
@@ -26,18 +27,24 @@ import UnitedKingdomPage from './Components/Countries/UnitedKingdom/UnitedKingdo
 import GermanyPage from './Components/Countries/Germany/GermanyPage';
 import NewZealandPage from './Components/Countries/NewZealand/NewZealandPage';
 
+// Import legal pages
+import TermsOfService from './Components/TermsOfService/TermsOfService';
+import PrivacyPolicy from './Components/PrivacyPolicy/PrivacyPolicy';
+
 import AdminHomepagePage from './Admin/AdminHome/AdminHomepagePage';
 import AdminAboutPage from './Admin/AdminAbout/AdminAboutPage';
 import AdminTeam from './Admin/AdminTeam/AdminTeam';
 import AdminLayout from './Admin/AdminLayout/AdminLayout';
 import AdminConsultationPage from './Admin/AdminConsultation/AdminConsultationPage';
 import AdminBlog from './Admin/AdminBlog/AdminBlog';
+import CounselorDashboard from './Components/CounselorDashboard/CounselorDashboard';
 
 // Admin imports
 function App() {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <div className="App">
           <Routes>
             {/* Public routes wrapped with PublicLayout */}
@@ -45,12 +52,15 @@ function App() {
               <Route index element={<HomePage />} />
               <Route path="about" element={<AboutPage />} />
               <Route path="study-abroad" element={<StudyAbroadPage />} />
+              <Route path="counselor-dashboard" element={<CounselorDashboard />} />
               <Route path="blog" element={<BlogPage />} />
               <Route path="blog/:id" element={<BlogDetail />} />
               <Route path="test-prep/ielts" element={<IELTSPage />} />
               <Route path="test-prep/pte" element={<PTEPage />} />
               <Route path="contact" element={<ContactPage />} />
               <Route path="consultation" element={<ConsultationPage />} />
+              <Route path="terms-of-service" element={<TermsOfService />} />
+              <Route path="privacy-policy" element={<PrivacyPolicy />} />
               
               {/* Individual country routes */}
               <Route path="study/australia" element={<AustraliaPage />} />
