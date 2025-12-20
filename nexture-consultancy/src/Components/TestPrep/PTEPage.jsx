@@ -61,7 +61,7 @@ const PTEPage = () => {
     {
       name: 'Express Plan',
       duration: '3 weeks',
-      price: '₹15,000',
+      price: '₹7,000',
       features: [
         'PTE software access',
         'Intensive group classes (4 times/week)',
@@ -74,7 +74,7 @@ const PTEPage = () => {
     {
       name: 'Standard Plan',
       duration: '6 weeks',
-      price: '₹18,000',
+      price: '₹9,000',
       features: [
         'Full PTE software suite',
         'Small batch classes (5 times/week)',
@@ -89,7 +89,7 @@ const PTEPage = () => {
     {
       name: 'Premium Plan',
       duration: '10 weeks',
-      price: '₹28,000',
+      price: '₹12,000',
       features: [
         'Unlimited software access',
         'One-on-one coaching sessions',

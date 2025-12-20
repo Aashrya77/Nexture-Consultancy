@@ -32,11 +32,11 @@ export default function Header() {
         <div className="contact-info">
           <div className="contact-item">
             <FaPhone className="contact-icon" />
-            <span>+91 98765 43210</span>
+            <span>+977 01-5928212</span>
           </div>
           <div className="contact-item">
             <FaEnvelope className="contact-icon" />
-            <span>info@nextureeducation.com</span>
+            <span>nextureeducation@gmail.com</span>
           </div>
           <div className="contact-item">
             <FaMapMarkerAlt className="contact-icon" />

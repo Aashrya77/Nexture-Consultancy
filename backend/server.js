@@ -28,13 +28,40 @@ app.use(cors({
     optionsSuccessStatus: 200
 }));
 
-// Rate limiting
+// Rate limiting - different limits for development vs production
+const isDevelopment = process.env.NODE_ENV !== 'production';
+
+// General rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  message: 'Too many requests from this IP, please try again later.'
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: isDevelopment ? 1000 : 500, // 1000 requests in dev, 500 in prod
+  message: {
+    error: 'Too many requests from this IP, please try again later.',
+    retryAfter: '15 minutes'
+  },
+  standardHeaders: true, // Return rate limit info in headers
+  legacyHeaders: false, // Disable the legacy headers
+  // Skip rate limiting for health checks and static files
+  skip: (req) => {
+    return req.path === '/health' || req.path.startsWith('/uploads') || req.path.startsWith('/static');
+  }
 });
+
+// Strict rate limiting for sensitive endpoints
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: isDevelopment ? 50 : 25, // 50 attempts in dev, 25 in prod
+  message: {
+    error: 'Too many login attempts, please try again later.',
+    retryAfter: '15 minutes'
+  },
+  standardHeaders: true,
+  legacyHeaders: false
+});
+
 app.use(limiter);
+// Apply stricter limits to auth routes
+app.use('/api/auth', authLimiter);
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));

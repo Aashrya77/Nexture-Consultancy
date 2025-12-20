@@ -67,7 +67,7 @@ const IELTSPage = () => {
     {
       name: 'Basic Plan',
       duration: '4 weeks',
-      price: '₹12,000',
+      price: '₹7,000',
       features: [
         'Basic study materials',
         'Group classes (3 times/week)',
@@ -80,7 +80,7 @@ const IELTSPage = () => {
     {
       name: 'Standard Plan',
       duration: '8 weeks',
-      price: '₹15,000',
+      price: '₹9,000',
       features: [
         'Complete study materials',
         'Group classes (4 times/week)',
@@ -94,7 +94,7 @@ const IELTSPage = () => {
     {
       name: 'Premium Plan',
       duration: '12 weeks',
-      price: '₹25,000',
+      price: '₹12,000',
       features: [
         'Premium study materials',
         'Small batch classes (5 times/week)',

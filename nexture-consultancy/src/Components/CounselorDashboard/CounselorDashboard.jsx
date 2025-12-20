@@ -13,7 +13,7 @@ export default function CounselorDashboard() {
       name: 'United States',
       slug: 'united-states',
       region: 'north-america',
-      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=400&fit=crop',
+      image: '/UsaBc.png',
       universities: 150,
       averageCost: '$25,000 - $55,000',
       description: 'Home to world-renowned universities and diverse academic programs'
@@ -22,7 +22,7 @@ export default function CounselorDashboard() {
       name: 'Canada',
       slug: 'canada',
       region: 'north-america',
-      image: 'https://images.unsplash.com/photo-1519452575417-564c1401ecc0?w=500&h=400&fit=crop',
+      image: '/canadaBc.png',
       universities: 95,
       averageCost: 'CAD 15,000 - 35,000',
       description: 'High-quality education with multicultural environment and work opportunities'
@@ -31,7 +31,7 @@ export default function CounselorDashboard() {
       name: 'United Kingdom',
       slug: 'united-kingdom',
       region: 'europe',
-      image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=500&h=400&fit=crop',
+      image: '/ukBc.jpg',
       universities: 130,
       averageCost: '£15,000 - £35,000',
       description: 'Rich academic tradition with shorter degree durations and global recognition'
@@ -40,7 +40,7 @@ export default function CounselorDashboard() {
       name: 'Australia',
       slug: 'australia',
       region: 'oceania',
-      image: 'https://images.unsplash.com/photo-1506973404872-a4a50e48c4d9?w=500&h=400&fit=crop',
+      image: '/AusBc.png',
       universities: 85,
       averageCost: 'AUD 20,000 - 45,000',
       description: 'High-quality education with excellent research opportunities and work visas'
@@ -49,7 +49,7 @@ export default function CounselorDashboard() {
       name: 'Germany',
       slug: 'germany',
       region: 'europe',
-      image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?w=500&h=400&fit=crop',
+      image: 'germanyBc.png',
       universities: 75,
       averageCost: '€0 - €20,000',
       description: 'Excellent engineering programs with affordable education and strong economy'
@@ -58,7 +58,7 @@ export default function CounselorDashboard() {
       name: 'New Zealand',
       slug: 'new-zealand',
       region: 'oceania',
-      image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=500&h=400&fit=crop',
+      image: '/new-zealandBC.png',
       universities: 45,
       averageCost: 'NZD 22,000 - 35,000',
       description: 'Safe environment with high-quality education and beautiful natural landscapes'

@@ -37,7 +37,7 @@ export const universitiesData = {
       },
       intakes: ["February", "July"],
       officialWebsite: "https://www.unimelb.edu.au",
-      logo: "/images/universities/unimelb-logo.png",
+      logo: "/melborn.svg",
       campusImages: ["/images/universities/unimelb-campus1.jpg", "/images/universities/unimelb-campus2.jpg"]
     },
     {
@@ -76,7 +76,7 @@ export const universitiesData = {
       },
       intakes: ["February", "July"],
       officialWebsite: "https://www.anu.edu.au",
-      logo: "/images/universities/anu-logo.png",
+      logo: "/Aus.jpeg",
       campusImages: ["/images/universities/anu-campus1.jpg", "/images/universities/anu-campus2.jpg"]
     },
     {
@@ -115,7 +115,7 @@ export const universitiesData = {
       },
       intakes: ["February", "July"],
       officialWebsite: "https://www.sydney.edu.au",
-      logo: "/images/universities/usyd-logo.png",
+      logo: "/sydney.jpeg",
       campusImages: ["/images/universities/usyd-campus1.jpg", "/images/universities/usyd-campus2.jpg"]
     },
     {
@@ -154,7 +154,7 @@ export const universitiesData = {
       },
       intakes: ["February", "June", "September"],
       officialWebsite: "https://www.unsw.edu.au",
-      logo: "/images/universities/unsw-logo.png",
+      logo: "/new south wales.png",
       campusImages: ["/images/universities/unsw-campus1.jpg", "/images/universities/unsw-campus2.jpg"]
     },
     {
@@ -193,7 +193,7 @@ export const universitiesData = {
       },
       intakes: ["February", "July"],
       officialWebsite: "https://www.monash.edu",
-      logo: "/images/universities/monash-logo.png",
+      logo: "/monas.png",
       campusImages: ["/images/universities/monash-campus1.jpg", "/images/universities/monash-campus2.jpg"]
     }
   ],
@@ -234,7 +234,7 @@ export const universitiesData = {
       },
       intakes: ["September", "January", "May"],
       officialWebsite: "https://www.utoronto.ca",
-      logo: "/images/universities/uoft-logo.png",
+      logo: "/toronto.jpeg",
       campusImages: ["/images/universities/uoft-campus1.jpg", "/images/universities/uoft-campus2.jpg"]
     },
     {
@@ -273,7 +273,7 @@ export const universitiesData = {
       },
       intakes: ["September", "January"],
       officialWebsite: "https://www.ubc.ca",
-      logo: "/images/universities/ubc-logo.png",
+      logo: "/britist columbia.jpeg",
       campusImages: ["/images/universities/ubc-campus1.jpg", "/images/universities/ubc-campus2.jpg"]
     },
     {
@@ -312,7 +312,7 @@ export const universitiesData = {
       },
       intakes: ["September", "January"],
       officialWebsite: "https://www.mcgill.ca",
-      logo: "/images/universities/mcgill-logo.png",
+      logo: "/mcgill.png",
       campusImages: ["/images/universities/mcgill-campus1.jpg", "/images/universities/mcgill-campus2.jpg"]
     },
     {
@@ -351,7 +351,7 @@ export const universitiesData = {
       },
       intakes: ["September", "January", "May"],
       officialWebsite: "https://uwaterloo.ca",
-      logo: "/images/universities/waterloo-logo.png",
+      logo: "/waterlooo.png",
       campusImages: ["/images/universities/waterloo-campus1.jpg", "/images/universities/waterloo-campus2.jpg"]
     }
   ],
@@ -392,7 +392,7 @@ export const universitiesData = {
       },
       intakes: ["Fall (September)"],
       officialWebsite: "https://www.harvard.edu",
-      logo: "/images/universities/harvard-logo.png",
+      logo: "/harverd.png",
       campusImages: ["/images/universities/harvard-campus1.jpg", "/images/universities/harvard-campus2.jpg"]
     },
     {
@@ -431,7 +431,7 @@ export const universitiesData = {
       },
       intakes: ["Fall (September)"],
       officialWebsite: "https://www.mit.edu",
-      logo: "/images/universities/mit-logo.png",
+      logo: "/mit.jpeg",
       campusImages: ["/images/universities/mit-campus1.jpg", "/images/universities/mit-campus2.jpg"]
     },
     {
@@ -470,7 +470,7 @@ export const universitiesData = {
       },
       intakes: ["Fall (September)", "Spring (January)"],
       officialWebsite: "https://www.stanford.edu",
-      logo: "/images/universities/stanford-logo.png",
+      logo: "/stand ford.png",
       campusImages: ["/images/universities/stanford-campus1.jpg", "/images/universities/stanford-campus2.jpg"]
     }
   ],
@@ -511,7 +511,7 @@ export const universitiesData = {
       },
       intakes: ["October"],
       officialWebsite: "https://www.ox.ac.uk",
-      logo: "/images/universities/oxford-logo.png",
+      logo: "/oxford.png",
       campusImages: ["/images/universities/oxford-campus1.jpg", "/images/universities/oxford-campus2.jpg"]
     },
     {
@@ -550,7 +550,7 @@ export const universitiesData = {
       },
       intakes: ["October"],
       officialWebsite: "https://www.cam.ac.uk",
-      logo: "/images/universities/cambridge-logo.png",
+      logo: "/cambridge.png",
       campusImages: ["/images/universities/cambridge-campus1.jpg", "/images/universities/cambridge-campus2.jpg"]
     },
     {
@@ -589,7 +589,7 @@ export const universitiesData = {
       },
       intakes: ["October"],
       officialWebsite: "https://www.imperial.ac.uk",
-      logo: "/images/universities/imperial-logo.png",
+      logo: "/imperial.png",
       campusImages: ["/images/universities/imperial-campus1.jpg", "/images/universities/imperial-campus2.jpg"]
     }
   ],
@@ -630,7 +630,7 @@ export const universitiesData = {
       },
       intakes: ["October", "April"],
       officialWebsite: "https://www.tum.de",
-      logo: "/images/universities/tum-logo.png",
+      logo: "/munich.png",
       campusImages: ["/images/universities/tum-campus1.jpg", "/images/universities/tum-campus2.jpg"]
     },
     {
@@ -669,7 +669,7 @@ export const universitiesData = {
       },
       intakes: ["October", "April"],
       officialWebsite: "https://www.uni-heidelberg.de",
-      logo: "/images/universities/heidelberg-logo.png",
+      logo: "/heidelberg.jpeg",
       campusImages: ["/images/universities/heidelberg-campus1.jpg", "/images/universities/heidelberg-campus2.jpg"]
     }
   ],
@@ -710,7 +710,7 @@ export const universitiesData = {
       },
       intakes: ["February", "July"],
       officialWebsite: "https://www.auckland.ac.nz",
-      logo: "/images/universities/auckland-logo.png",
+      logo: "/suckland.png",
       campusImages: ["/images/universities/auckland-campus1.jpg", "/images/universities/auckland-campus2.jpg"]
     },
     {
@@ -749,7 +749,7 @@ export const universitiesData = {
       },
       intakes: ["February", "July"],
       officialWebsite: "https://www.otago.ac.nz",
-      logo: "/images/universities/otago-logo.png",
+      logo: "/otago.jpeg",
       campusImages: ["/images/universities/otago-campus1.jpg", "/images/universities/otago-campus2.jpg"]
     }
   ]

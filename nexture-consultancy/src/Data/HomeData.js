@@ -76,7 +76,8 @@ const services = [
       testName: 'IELTS',
       category: 'English Proficiency',
       duration: '8 weeks',
-      price: '₹7,500',
+      originalPrice: '₹7,000',
+      price: '₹3,500',
       discount: '50% OFF'
 
     },
@@ -85,6 +86,7 @@ const services = [
       testName: 'PTE',
       category: 'English Proficiency',
       duration: '6 weeks',
+      originalPrice: '₹7,000',
       price: '₹3,500',
       discount: '50% OFF'
     }

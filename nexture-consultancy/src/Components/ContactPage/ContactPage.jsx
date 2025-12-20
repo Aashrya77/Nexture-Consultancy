@@ -18,13 +18,13 @@ export default function ContactPage() {
     {
       icon: '📧',
       title: 'Email',
-      detail: 'info@nextureeducation.com',
+      detail: 'nextureeducation@gmail.com',
       description: 'Send us an email anytime'
     },
     {
       icon: '📞',
       title: 'Phone',
-      detail: '+977-1-4567890',
+      detail: '+977-01-5928212',
       description: 'Call us during business hours'
     },
     {

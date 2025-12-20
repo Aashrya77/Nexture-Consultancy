@@ -1210,6 +1210,19 @@
   line-height: 1.5;
 }
 
+.original-price {
+  text-decoration: line-through;
+  color: #9ca3af;
+  font-size: 0.9rem;
+  margin-right: 8px;
+}
+
+.discounted-price {
+  color: #dc2626;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
 .learn-more-btn {
   background-color: transparent;
   color: #374151;
@@ -1617,6 +1630,7 @@
   .hero-content-wrapper {
     grid-template-columns: 1fr;
     gap: 40px;
+    padding-top: 1.5rem;
   }
   
   .hero-slideshow {

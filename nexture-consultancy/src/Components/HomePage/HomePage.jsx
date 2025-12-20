@@ -354,7 +354,10 @@ export default function HomePage() {
                 <div className="course-detail">
                   <span className="check-icon">✓</span>
                   <span className="detail-text">
-                    Starting from {course.price}
+                    Starting from {course.originalPrice && (
+                      <span className="original-price">{course.originalPrice}</span>
+                    )}
+                    <span className="discounted-price">{course.price}</span>
                   </span>
                 </div>
               </div>

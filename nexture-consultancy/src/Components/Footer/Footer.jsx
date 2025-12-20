@@ -41,8 +41,8 @@ export default function Footer() {
             <ul className="footer-contact">
               <li>Nexture Education, Kathmandu</li>
               <li>Nepal</li>
-              <li>Phone: +91 98765 43210</li>
-              <li>Email: info@nextureeducation.com</li>
+              <li>Phone: 01-5928212</li>
+              <li>Email: nextureeducation@gmail.com</li>
             </ul>
           </div>
 
