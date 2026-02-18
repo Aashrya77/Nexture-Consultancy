@@ -1,4 +1,5 @@
 import React from 'react';
+import PopupModal from './Components/PopupModal';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Import authentication context
@@ -32,19 +33,22 @@ import TermsOfService from './Components/TermsOfService/TermsOfService';
 import PrivacyPolicy from './Components/PrivacyPolicy/PrivacyPolicy';
 
 import AdminHomepagePage from './Admin/AdminHome/AdminHomepagePage';
+import AdminPopupImage from './Admin/AdminHome/AdminPopupImage';
 import AdminAboutPage from './Admin/AdminAbout/AdminAboutPage';
 import AdminTeam from './Admin/AdminTeam/AdminTeam';
 import AdminLayout from './Admin/AdminLayout/AdminLayout';
 import AdminConsultationPage from './Admin/AdminConsultation/AdminConsultationPage';
 import AdminBlog from './Admin/AdminBlog/AdminBlog';
+import AdminDashboard from './Admin/AdminDashboard/AdminDashboard';
+import AdminContact from './Admin/AdminContact/AdminContact';
+import AdminUsers from './Admin/AdminUsers/AdminUsers';
 import CounselorDashboard from './Components/CounselorDashboard/CounselorDashboard';
-
-// Admin imports
 function App() {
   return (
     <AuthProvider>
       <Router>
         <ScrollToTop />
+        <PopupModal />
         <div className="App">
           <Routes>
             {/* Public routes wrapped with PublicLayout */}
@@ -80,12 +84,15 @@ function App() {
                 <AdminLayout />
               </ProtectedRoute>
             }>
-              <Route index element={<AdminHomepagePage />} />
+              <Route index element={<AdminDashboard />} />
               <Route path="homepage" element={<AdminHomepagePage />} />
               <Route path="about" element={<AdminAboutPage />} />
               <Route path="team" element={<AdminTeam />} />
               <Route path="consultations" element={<AdminConsultationPage />} />
               <Route path="blog" element={<AdminBlog />} />
+              <Route path="contact" element={<AdminContact />} />
+              <Route path="users" element={<AdminUsers />} />
+              <Route path="popup-image" element={<AdminPopupImage />} />
             </Route>
           </Routes>
         </div>

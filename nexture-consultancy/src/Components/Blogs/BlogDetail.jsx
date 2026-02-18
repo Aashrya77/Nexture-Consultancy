@@ -10,18 +10,30 @@ const BlogDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [relatedBlogs, setRelatedBlogs] = useState([]);
+  const [coverImageError, setCoverImageError] = useState(false);
+
+  const normalizeBlogResponse = (payload) => {
+    if (!payload) return null;
+    // Support common API shapes: { data: {...} }, { blog: {...} }, or direct object
+    const candidate = payload.data || payload.blog || payload;
+    // Sometimes APIs return arrays (e.g. [blog])
+    if (Array.isArray(candidate)) return candidate[0] || null;
+    return candidate;
+  };
 
   useEffect(() => {
     const fetchBlog = async () => {
       setLoading(true);
       try {
         const response = await axios.get(`${base_url}/api/blogs/${id}`);
-        setBlog(response.data);
+        const blogData = normalizeBlogResponse(response?.data);
+        setBlog(blogData);
+        setCoverImageError(false);
         setError(null);
         
         // Fetch related blogs based on tags
-        if (response.data.tags && response.data.tags.length > 0) {
-          fetchRelatedBlogs(response.data.tags, response.data._id);
+        if (blogData?.tags && blogData.tags.length > 0) {
+          fetchRelatedBlogs(blogData.tags, blogData._id);
         }
       } catch (error) {
         console.error("Error fetching blog:", error);
@@ -39,11 +51,15 @@ const BlogDetail = () => {
   const fetchRelatedBlogs = async (tags, currentBlogId) => {
     try {
       const response = await axios.get(`${base_url}/api/blogs`);
-      // Filter blogs that share at least one tag with current blog and exclude current blog
-      const filtered = response.data
+      // Handle { data: [...] } format
+      const list = response.data?.data || 
+                   (Array.isArray(response.data) ? response.data : 
+                    (response.data?.blogs || []));
+
+      const filtered = list
         .filter(blog => 
           blog._id !== currentBlogId && 
-          blog.tags.some(tag => tags.includes(tag))
+          blog.tags && blog.tags.some(tag => tags.includes(tag))
         )
         .slice(0, 3); // Limit to 3 related blogs
       
@@ -62,6 +78,16 @@ const BlogDetail = () => {
       day: 'numeric' 
     });
   };
+
+  const getAssetUrl = (assetPath) => {
+    if (!assetPath || typeof assetPath !== 'string') return '';
+    if (/^https?:\/\//i.test(assetPath)) return assetPath;
+    const normalized = assetPath.startsWith('/') ? assetPath : `/${assetPath}`;
+    // If base_url is empty, this becomes a relative URL (works when frontend and backend share origin)
+    return `${base_url}${normalized}`;
+  };
+
+  const coverImageSrc = blog?.images?.[0] ? getAssetUrl(blog.images[0]) : '';
 
   if (loading) {
     return (
@@ -120,20 +146,31 @@ const BlogDetail = () => {
 
       <div className="blog-detail-content">
         <div className="blog-detail-main">
-          {blog.images && blog.images.length > 0 && (
+          {coverImageSrc && !coverImageError && (
             <div className="blog-detail-image">
-              <img src={`${base_url}/${blog.images[0]}`} alt={blog.title} />
+              <img
+                src={coverImageSrc}
+                alt={blog.title}
+                onError={() => setCoverImageError(true)}
+              />
             </div>
           )}
           
           <div className="blog-detail-text">
-            {/* Split content by paragraphs and render each paragraph */}
-            {blog.content.split('\n\n').map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
+            {typeof blog.content === 'string' && blog.content.trim().length > 0 ? (
+              /<\s*\w+[^>]*>/.test(blog.content) ? (
+                <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+              ) : (
+                blog.content.split('\n\n').map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))
+              )
+            ) : (
+              <p>No content available.</p>
+            )}
           </div>
           
-          <div className="blog-detail-share">
+          {/* <div className="blog-detail-share">
             <h3>Share this article</h3>
             <div className="share-buttons">
               <button className="share-button facebook">
@@ -146,7 +183,7 @@ const BlogDetail = () => {
                 <span className="share-icon">💼</span> LinkedIn
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
         
         {relatedBlogs.length > 0 && (
@@ -161,7 +198,7 @@ const BlogDetail = () => {
                 >
                   <div className="related-blog-image">
                     {relatedBlog.images && relatedBlog.images[0] ? (
-                      <img src={`${base_url}/${relatedBlog.images[0]}`} alt={relatedBlog.title} />
+                      <img src={getAssetUrl(relatedBlog.images[0])} alt={relatedBlog.title} />
                     ) : (
                       <div className="image-placeholder">
                         <span className="placeholder-icon">🖼️</span>

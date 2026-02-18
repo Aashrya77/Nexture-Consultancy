@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom';
 import "./BlogPage.css";
 import axios from 'axios';
@@ -14,6 +15,13 @@ const BlogPage = () => {
   const [imageErrors, setImageErrors] = useState({});
   const blogsPerPage = 6;
 
+  const getAssetUrl = (assetPath) => {
+    if (!assetPath || typeof assetPath !== 'string') return '';
+    if (/^https?:\/\//i.test(assetPath)) return assetPath;
+    const normalized = assetPath.startsWith('/') ? assetPath : `/${assetPath}`;
+    return `${base_url}${normalized}`;
+  };
+
 
   const getBlogs = async () => {
     setLoading(true);
@@ -28,16 +36,17 @@ const BlogPage = () => {
       let blogsData = response.data;
       
       // Handle different response formats
-      if (Array.isArray(blogsData)) {
+      if (blogsData.data && Array.isArray(blogsData.data)) {
+        // Handle { data: [...] } format
+        setBlogs(blogsData.data);
+        setError(null);
+      } else if (Array.isArray(blogsData)) {
+        // Handle direct array format (fallback)
         setBlogs(blogsData);
         setError(null);
       } else if (blogsData.blogs && Array.isArray(blogsData.blogs)) {
-        // Handle { blogs: [...] } format
+        // Handle { blogs: [...] } format (fallback)
         setBlogs(blogsData.blogs);
-        setError(null);
-      } else if (blogsData.data && Array.isArray(blogsData.data)) {
-        // Handle { data: [...] } format
-        setBlogs(blogsData.data);
         setError(null);
       } else {
         // Unexpected format
@@ -230,7 +239,7 @@ const BlogPage = () => {
                     <div className="blog-post-image">
                       {images && images[0] && !imageErrors[_id] ? (
                         <img 
-                          src={`${base_url}/${images[0]}`} 
+                          src={getAssetUrl(images[0])} 
                           alt={title || 'Blog post image'}
                           onError={() => handleImageError(_id)}
                         />
@@ -255,7 +264,7 @@ const BlogPage = () => {
                       
                       <h3 className="blog-post-title">{title || 'Untitled Post'}</h3>
                       
-                      <p className="blog-post-excerpt">{truncateText(content, 150)}</p>
+                      <div className="blog-post-excerpt" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(truncateText(content, 150)) }} />
                       
                       <div className="blog-post-footer">
                         

@@ -13,8 +13,9 @@ export default function AdminLayout() {
     { name: 'Blog Posts', href: '/admin/blog', icon: '📝' },
     { name: 'Team Members', href: '/admin/team', icon: '👥' },
     { name: 'Consultations', href: '/admin/consultations', icon: '📅' },
-    { name: 'Contact Info', href: '/admin/contact', icon: '📞' },
-    { name: 'Site Settings', href: '/admin/settings', icon: '⚙️' },
+    { name: 'Contact Messages', href: '/admin/contact', icon: '📞' },
+    { name: 'Admin Accounts', href: '/admin/users', icon: '🔐' },
+    { name: 'Popup Image', href: '/admin/popup-image', icon: '🖼️' },
   ];
 
   const isActive = (href) => {

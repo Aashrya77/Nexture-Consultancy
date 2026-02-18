@@ -1,7 +1,8 @@
 import React, { use, useEffect } from "react";
-import "./AdminHome.css"; // Assuming you have a CSS file for styling
+import "./AdminHome.css";
 import axios from "axios";
 import base_url from "../../../config";
+import AdminPopupImage from "./AdminPopupImage";
 const AdminHomepagePage = () => {
   const [formData, setFormData] = React.useState({
     title: "",

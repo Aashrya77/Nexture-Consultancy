@@ -144,15 +144,12 @@ router.get('/users', async (req, res) => {
 });
 
 // @route   POST /api/admin/users
-// @desc    Create new user
+// @desc    Create new admin user
 // @access  Private/Admin
 router.post('/users', [
-  body('firstName').trim().isLength({ min: 1, max: 50 }).withMessage('First name is required'),
-  body('lastName').trim().isLength({ min: 1, max: 50 }).withMessage('Last name is required'),
+  body('username').trim().isLength({ min: 3, max: 30 }).withMessage('Username must be 3-30 characters'),
   body('email').isEmail().normalizeEmail().withMessage('Valid email is required'),
-  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
-  body('role').isIn(['admin', 'counselor', 'staff']).withMessage('Invalid role'),
-  body('department').isIn(['admissions', 'counseling', 'test-prep', 'visa', 'marketing', 'admin']).withMessage('Invalid department')
+  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
 ], async (req, res) => {
   try {
     const errors = validationResult(req);
@@ -196,10 +193,8 @@ router.post('/users', [
 // @desc    Update user
 // @access  Private/Admin
 router.put('/users/:id', [
-  body('firstName').optional().trim().isLength({ min: 1, max: 50 }),
-  body('lastName').optional().trim().isLength({ min: 1, max: 50 }),
-  body('role').optional().isIn(['admin', 'counselor', 'staff']),
-  body('department').optional().isIn(['admissions', 'counseling', 'test-prep', 'visa', 'marketing', 'admin']),
+  body('username').optional().trim().isLength({ min: 3, max: 30 }),
+  body('email').optional().isEmail().normalizeEmail(),
   body('isActive').optional().isBoolean()
 ], async (req, res) => {
   try {

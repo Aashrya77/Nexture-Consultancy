@@ -2,6 +2,37 @@ import React, { useState, useEffect } from "react";
 import "./AdminBlog.css";
 import axios from "axios";
 import base_url from "../../../config";
+import { Editor } from '@tinymce/tinymce-react';
+import tinymce from 'tinymce/tinymce';
+import 'tinymce/models/dom/model';
+import 'tinymce/icons/default/icons';
+import 'tinymce/themes/silver/theme';
+import 'tinymce/plugins/advlist';
+import 'tinymce/plugins/autolink';
+import 'tinymce/plugins/lists';
+import 'tinymce/plugins/link';
+import 'tinymce/plugins/image';
+import 'tinymce/plugins/charmap';
+import 'tinymce/plugins/preview';
+import 'tinymce/plugins/anchor';
+import 'tinymce/plugins/searchreplace';
+import 'tinymce/plugins/visualblocks';
+import 'tinymce/plugins/code';
+import 'tinymce/plugins/fullscreen';
+import 'tinymce/plugins/insertdatetime';
+import 'tinymce/plugins/media';
+import 'tinymce/plugins/table';
+import 'tinymce/plugins/wordcount';
+import 'tinymce/skins/ui/oxide/skin.min.css';
+import 'tinymce/skins/content/default/content.min.css';
+
+// Prevent TinyMCE from attempting to fetch a license manager plugin over the network
+// when running under strict CSP in production.
+if (typeof tinymce !== 'undefined' && tinymce?.PluginManager) {
+  try {
+    tinymce.PluginManager.add('licensekeymanager', () => {});
+  } catch (_) {}
+}
 
 const AdminBlog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -35,6 +66,13 @@ const AdminBlog = () => {
 
   const blogsPerPage = 5;
 
+  const getAssetUrl = (assetPath) => {
+    if (!assetPath || typeof assetPath !== 'string') return '';
+    if (/^https?:\/\//i.test(assetPath)) return assetPath;
+    const normalized = assetPath.startsWith('/') ? assetPath : `/${assetPath}`;
+    return `${base_url}${normalized}`;
+  };
+
   // Calculate statistics
   const calculateStats = (blogData) => {
     const stats = {
@@ -49,8 +87,8 @@ const AdminBlog = () => {
   const createBlog = () => {
     setEditBlog({
       _id: "",
-      title: "New Blog Post",
-      content: "Start writing your content here...",
+      title: "",
+      content: "",
       tags: [],
       status: "draft",
       images: []
@@ -64,7 +102,8 @@ const AdminBlog = () => {
     setLoading(true);
     try {
       const response = await axios.get(`${base_url}/api/blogs`);
-      const blogsWithStatus = response.data.map(blog => ({
+      const blogData = response.data.data || response.data || [];
+      const blogsWithStatus = blogData.map(blog => ({
         ...blog,
         status: blog.status || "published"
       }));
@@ -368,7 +407,7 @@ const AdminBlog = () => {
                 <div className="admin-blog-item" key={_id}>
                   <div className="admin-blog-image-container">
                     {images && images[0] ? (
-                      <img src={`${base_url}/${images[0]}`} alt={title} className="admin-blog-image"/>
+                      <img src={getAssetUrl(images[0])} alt={title} className="admin-blog-image"/>
                     ) : (
                       <div className="admin-blog-image admin-blog-no-image">
                         <i className="fas fa-image"></i>
@@ -503,100 +542,117 @@ const AdminBlog = () => {
       {/* Edit/Create Blog Modal */}
       {showEditModal && (
         <div className="admin-blog-modal-overlay">
-          <div className="admin-blog-modal admin-blog-modal-large">
-            <div className="admin-blog-modal-header">
-              <h3>{editBlog._id ? 'Edit Blog Post' : 'Create New Blog Post'}</h3>
+          <div className="admin-blog-modal admin-blog-modal-large" style={{ background: '#fff', borderRadius: 20, boxShadow: '0 8px 40px 0 rgba(80,86,170,0.14)', padding: 0, maxWidth: 680, width: '100%' }}>
+            <div className="admin-blog-modal-header" style={{ borderBottom: '2px solid #a78bfa', padding: '28px 32px 18px 32px', background: '#f9fafb', borderTopLeftRadius: 20, borderTopRightRadius: 20 }}>
+              <h3 style={{ fontSize: '2rem', fontWeight: 800, color: '#3730a3', margin: 0 }}>{editBlog._id ? 'Edit Blog Post' : 'Create New Blog Post'}</h3>
               <button 
                 className="admin-blog-modal-close"
+                style={{ fontSize: '2.2rem', color: '#8b5cf6', background: 'none', border: 'none', cursor: 'pointer' }}
                 onClick={() => setShowEditModal(false)}
               >
                 <i className="fas fa-times"></i>
               </button>
             </div>
-            <div className="admin-blog-modal-body">
+            <div className="admin-blog-modal-body" style={{ padding: '30px 32px', background: '#fff' }}>
               <div className="admin-blog-form-group">
-                <label>Title</label>
+                <label style={{ color: '#3730a3', fontWeight: 700 }}>Title</label>
                 <input
                   type="text"
                   value={editBlog.title}
                   onChange={(e) => setEditBlog({...editBlog, title: e.target.value})}
                   className="admin-blog-form-input"
                   placeholder="Enter blog title"
+                  style={{ borderRadius: 8, border: '1.5px solid #e5e7eb', background: '#f9fafb', fontSize: 16, padding: '12px 14px', marginBottom: 0 }}
                 />
               </div>
-              
               <div className="admin-blog-form-group">
-                <label>Content</label>
-                <textarea
+                <label style={{ color: '#3730a3', fontWeight: 700 }}>Content</label>
+                <Editor
+                  tinymce={tinymce}
                   value={editBlog.content}
-                  onChange={(e) => setEditBlog({...editBlog, content: e.target.value})}
-                  className="admin-blog-form-textarea"
-                  placeholder="Write your blog content here..."
-                  rows={10}
+                  onEditorChange={(content) => setEditBlog({ ...editBlog, content })}
+                  init={{
+                    height: 300,
+                    menubar: false,
+                    skin: false,
+                    content_css: false,
+                    branding: false,
+                    promotion: false,
+                    plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table wordcount',
+                    model: 'dom',
+                    license_key: 'gpl',
+                    toolbar:
+                      'undo redo | formatselect | bold italic backcolor | \
+                      alignleft aligncenter alignright alignjustify | \
+                      bullist numlist outdent indent | removeformat',
+                  }}
                 />
               </div>
-              
-              <div className="admin-blog-form-group">
-                <label>Status</label>
-                <select
-                  value={editBlog.status}
-                  onChange={(e) => setEditBlog({...editBlog, status: e.target.value})}
-                  className="admin-blog-form-select"
-                >
-                  <option value="published">Published</option>
-                  <option value="draft">Draft</option>
-                  <option value="scheduled">Scheduled</option>
-                </select>
-              </div>
-              
-              <div className="admin-blog-form-group">
-                <label>Images</label>
-                <input
-                  type="file"
-                  multiple
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  className="admin-blog-form-input"
-                />
-                {imagePreview.length > 0 && (
-                  <div className="admin-blog-image-preview-container">
-                    {imagePreview.map((url, index) => (
-                      <div key={index} className="admin-blog-image-preview">
-                        <img src={url} alt={`Preview ${index + 1}`} />
-                        <button
-                          type="button"
-                          className="admin-blog-remove-image"
-                          onClick={() => removeImage(index)}
-                        >
-                          <i className="fas fa-times"></i>
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                {editBlog.images && editBlog.images.length > 0 && (
-                  <div className="admin-blog-existing-images">
-                    <label>Existing Images:</label>
-                    <div className="admin-blog-image-preview-container">
-                      {editBlog.images.map((image, index) => (
-                        <div key={index} className="admin-blog-image-preview">
-                          <img src={`${base_url}/${image}`} alt={`Existing ${index + 1}`} />
+              <div className="admin-blog-form-group" style={{ display: 'flex', gap: 16 }}>
+                <div style={{ flex: 1 }}>
+                  <label style={{ color: '#3730a3', fontWeight: 700 }}>Status</label>
+                  <select
+                    value={editBlog.status}
+                    onChange={(e) => setEditBlog({...editBlog, status: e.target.value})}
+                    className="admin-blog-form-select"
+                    style={{ borderRadius: 8, border: '1.5px solid #e5e7eb', background: '#f9fafb', fontSize: 15, padding: '10px 12px' }}
+                  >
+                    <option value="published">Published</option>
+                    <option value="draft">Draft</option>
+                    <option value="scheduled">Scheduled</option>
+                  </select>
+                </div>
+                <div style={{ flex: 2 }}>
+                  <label style={{ color: '#3730a3', fontWeight: 700 }}>Images</label>
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    className="admin-blog-form-input"
+                    style={{ borderRadius: 8, border: '1.5px solid #e5e7eb', background: '#f9fafb', fontSize: 15, padding: '10px 12px' }}
+                  />
+                  {imagePreview.length > 0 && (
+                    <div className="admin-blog-image-preview-container" style={{ display: 'flex', gap: 10, marginTop: 10 }}>
+                      {imagePreview.map((url, index) => (
+                        <div key={index} className="admin-blog-image-preview" style={{ position: 'relative' }}>
+                          <img src={url} alt={`Preview ${index + 1}`} style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 6, boxShadow: '0 2px 8px 0 rgba(139,92,246,0.09)' }} />
+                          <button
+                            type="button"
+                            className="admin-blog-remove-image"
+                            onClick={() => removeImage(index)}
+                            style={{ position: 'absolute', top: -10, right: -10, background: '#fff', border: '1px solid #e5e7eb', borderRadius: '50%', width: 22, height: 22, color: '#dc2626', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 1px 4px 0 rgba(139,92,246,0.09)' }}
+                          >
+                            <i className="fas fa-times"></i>
+                          </button>
                         </div>
                       ))}
                     </div>
-                  </div>
-                )}
+                  )}
+                  {editBlog.images && editBlog.images.length > 0 && (
+                    <div className="admin-blog-existing-images" style={{ marginTop: 8 }}>
+                      <label style={{ fontWeight: 600, color: '#555' }}>Existing Images:</label>
+                      <div className="admin-blog-image-preview-container" style={{ display: 'flex', gap: 10, marginTop: 4 }}>
+                        {editBlog.images.map((image, index) => (
+                          <div key={index} className="admin-blog-image-preview">
+                            <img src={getAssetUrl(image)} alt={`Existing ${index + 1}`} style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 6, boxShadow: '0 2px 8px 0 rgba(139,92,246,0.09)' }} />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
-              
               <div className="admin-blog-form-group">
-                <label>Tags</label>
-                <div className="admin-blog-tag-input-container">
+                <label style={{ color: '#3730a3', fontWeight: 700 }}>Tags</label>
+                <div className="admin-blog-tag-input-container" style={{ gap: 6 }}>
                   <input
                     type="text"
                     value={newTag}
                     onChange={(e) => setNewTag(e.target.value)}
                     className="admin-blog-form-input"
                     placeholder="Add a tag and press Enter"
+                    style={{ borderRadius: 8, border: '1.5px solid #e5e7eb', background: '#f9fafb', fontSize: 15, padding: '10px 12px' }}
                     onKeyPress={(e) => {
                       if (e.key === 'Enter') {
                         e.preventDefault();
@@ -606,17 +662,19 @@ const AdminBlog = () => {
                   />
                   <button 
                     className="admin-blog-btn-secondary"
+                    style={{ background: '#ede9fe', color: '#7c3aed', border: 'none', borderRadius: 6, padding: '8px 16px', fontWeight: 600, fontSize: 15, cursor: 'pointer', boxShadow: '0 1px 4px 0 rgba(139,92,246,0.07)' }}
                     onClick={addTag}
                   >
                     Add
                   </button>
                 </div>
-                <div className="admin-blog-tags admin-blog-edit-tags">
+                <div className="admin-blog-tags admin-blog-edit-tags" style={{ marginTop: 8, gap: 6 }}>
                   {editBlog.tags && editBlog.tags.map((tag, index) => (
-                    <span key={index} className="admin-blog-tag admin-blog-tag-removable">
+                    <span key={index} className="admin-blog-tag admin-blog-tag-removable" style={{ background: '#ede9fe', color: '#7c3aed', borderRadius: 6, padding: '4px 12px', marginRight: 8, fontWeight: 600, fontSize: 14, display: 'inline-flex', alignItems: 'center' }}>
                       {tag}
                       <button 
                         className="admin-blog-tag-remove"
+                        style={{ background: 'none', border: 'none', color: '#a21caf', fontSize: 13, marginLeft: 6, cursor: 'pointer' }}
                         onClick={() => removeTag(tag)}
                       >
                         <i className="fas fa-times"></i>
@@ -626,15 +684,17 @@ const AdminBlog = () => {
                 </div>
               </div>
             </div>
-            <div className="admin-blog-modal-footer">
+            <div className="admin-blog-modal-footer" style={{ borderTop: '1.5px solid #e5e7eb', padding: '22px 32px', background: '#f9fafb', borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }}>
               <button 
                 className="admin-blog-btn-secondary"
+                style={{ background: '#ede9fe', color: '#7c3aed', border: 'none', borderRadius: 6, padding: '10px 24px', fontWeight: 700, fontSize: 16, cursor: 'pointer', marginRight: 10 }}
                 onClick={() => setShowEditModal(false)}
               >
                 Cancel
               </button>
               <button 
                 className="admin-blog-btn-primary"
+                style={{ background: '#8b5cf6', color: '#fff', border: 'none', borderRadius: 6, padding: '10px 24px', fontWeight: 700, fontSize: 16, cursor: 'pointer', boxShadow: '0 1px 8px 0 rgba(139,92,246,0.09)' }}
                 onClick={saveBlog}
               >
                 Save Blog Post

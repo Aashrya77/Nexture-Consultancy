@@ -18,10 +18,29 @@ const blogRoutes = require('./routes/Blogs');
 const consultationRoutes = require('./routes/consultation');
 
 // Middleware
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      "img-src": ["'self'", "data:", "http://localhost:5000", "https://api.nexture.edu.np"]
+    }
+  },
+  crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
 app.use(compression());
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174', 'http://127.0.0.1:5173', 'http://127.0.0.1:3000', 'https://nexture.edu.np'],
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:5173',
+      'http://localhost:5174',
+      'http://127.0.0.1:5173',
+      'http://127.0.0.1:3000',
+      'https://nexture.edu.np',
+      'https://www.nexture.edu.np',
+      'http://nexture.edu.np',
+      'http://www.nexture.edu.np',
+      'https://api.nexture.edu.np'
+    ],
     credentials: true,  
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
@@ -30,6 +49,12 @@ app.use(cors({
 
 // Rate limiting - different limits for development vs production
 const isDevelopment = process.env.NODE_ENV !== 'production';
+
+// When deployed behind a reverse proxy (Render, Vercel, Nginx, Cloudflare, etc.)
+// Express must trust the proxy so req.ip reflects the real client IP instead of the proxy’s IP.
+if (!isDevelopment) {
+  app.set('trust proxy', 1); // trust first proxy
+}
 
 // General rate limiting
 const limiter = rateLimit({
@@ -59,9 +84,9 @@ const authLimiter = rateLimit({
   legacyHeaders: false
 });
 
-app.use(limiter);
-// Apply stricter limits to auth routes
-app.use('/api/auth', authLimiter);
+// Rate limiting disabled as per request. To re-enable, uncomment the lines below.
+// app.use(limiter);
+// app.use('/api/auth', authLimiter);
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
@@ -89,8 +114,10 @@ app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/team', teamRoutes);
 app.use('/api/home', uploadRoutes);
+app.use('/api/popup-image', require('./routes/PopupImage'));
 app.use('/api/blogs', blogRoutes);
 app.use('/api/consultation', consultationRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

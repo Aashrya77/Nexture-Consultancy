@@ -76,7 +76,7 @@ const services = [
       testName: 'IELTS',
       category: 'English Proficiency',
       duration: '8 weeks',
-      originalPrice: '₹7,000',
+      originalPrice: 'Rs. 7,000',
       price: '₹3,500',
       discount: '50% OFF'
 
@@ -86,7 +86,7 @@ const services = [
       testName: 'PTE',
       category: 'English Proficiency',
       duration: '6 weeks',
-      originalPrice: '₹7,000',
+      originalPrice: 'Rs. 7,000',
       price: '₹3,500',
       discount: '50% OFF'
     }
@@ -110,6 +110,15 @@ const services = [
       image: '/sandhya.jpg',
       title: 'Truly Reliable!',
       testimonial: 'They made my dream of studying in Canada possible. Highly recommend their services!'
+    },
+    {
+      id: 3,
+      rating: 5,
+      name: 'Sony Acharya',
+      program: 'Student in New Zealand',
+      image: '/Sony Acharya.jpeg',
+      title: 'Expertise and Support!',
+      testimonial: "I couldn't have navigated the visa process alone. Their expertise and support were truly invaluable!"
     }
   ];
 

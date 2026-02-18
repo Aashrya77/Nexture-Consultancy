@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import base_url from '../../../config';
 import './AdminTeam.css';
 
 export default function AdminTeam() {
@@ -32,7 +33,7 @@ export default function AdminTeam() {
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
-    axios.defaults.baseURL = 'http://localhost:5000';
+    axios.defaults.baseURL = base_url;
   }, []);
 
   useEffect(() => {
